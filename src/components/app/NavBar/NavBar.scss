@@ -1,0 +1,38 @@
+.navigation {
+  grid-area: nav;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+.menu {
+  flex-grow: 1;
+  &__text {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    justify-self: start;
+  }
+  &__img {
+    background-size: cover;
+    justify-self: center;
+  }
+  &__item {
+    display: grid;
+    align-items: center;
+    width: 90%;
+    height: 40px;
+    border-radius: 0 20px 20px 0;
+    grid-template-columns: 30% 70%;
+    color: rgba(0, 0, 0, 0.75);
+    cursor: pointer;
+    &_active {
+      background-color: rgba(162, 121, 255, 0.5);
+    }
+  }
+}
+.menu__item_active .menu__text {
+  font-weight: 700;
+}
+.menu__item:hover:not(.menu__item_active) {
+  background-color: rgba(196, 196, 196, 0.3);
+}
