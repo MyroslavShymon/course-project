@@ -1,21 +1,69 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
-import Home from "../views/Home.vue";
+import Task from "../views/Task.vue";
 
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
-    path: "/",
-    name: "home",
+    path: "/task",
+    name: "task",
     meta: { layout: "main" },
-    component: Home,
+    component: Task,
   },
   {
     path: "/about",
     name: "about",
     meta: { layout: "empty" },
     component: () => import("../views/About.vue"),
+  },
+  {
+    path: "/archive",
+    name: "archive",
+    meta: { layout: "main" },
+    component: () => import("../views/Archive.vue"),
+  },
+  {
+    path: "/been",
+    name: "been",
+    meta: { layout: "main" },
+    component: () => import("../views/Been.vue"),
+  },
+  {
+    path: "/calendar",
+    name: "calendar",
+    meta: { layout: "main" },
+    component: () => import("../views/Calendar.vue"),
+  },
+  {
+    path: "/chats",
+    name: "chats",
+    meta: { layout: "main" },
+    component: () => import("../views/Chats.vue"),
+  },
+  {
+    path: "/documents",
+    name: "documents",
+    meta: { layout: "main" },
+    component: () => import("../views/Documents.vue"),
+  },
+  {
+    path: "/manager",
+    name: "manager",
+    meta: { layout: "main" },
+    component: () => import("../views/Manager.vue"),
+  },
+  {
+    path: "/plans",
+    name: "plans",
+    meta: { layout: "main" },
+    component: () => import("../views/Plans.vue"),
+  },
+  {
+    path: "/reminder",
+    name: "reminder",
+    meta: { layout: "main" },
+    component: () => import("../views/Reminder.vue"),
   },
 ];
 

@@ -1,6 +1,5 @@
 <template>
   <div class="app-wrapper">
-    <h2>Main Layout</h2>
     <Header />
     <NavBar />
     <router-view class="app-wrapper-content"></router-view>

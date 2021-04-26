@@ -6,7 +6,10 @@
         <div class="burger-menu__item"></div>
         <div class="burger-menu__item"></div>
       </div> -->
-      <router-link to="/home" class="header__logo">ToDoList+</router-link>
+      <md-button class="md-icon-button">
+        <md-icon>menu</md-icon>
+      </md-button>
+      <router-link to="/" class="header__logo">ToDoList+</router-link>
     </div>
     <div class="header__inner">
       <form method="get" action="" class="search">
@@ -29,5 +32,5 @@
 </template>
 
 <style lang="scss">
-@import url("./Header.scss");
+@import "./Header.scss";
 </style>
