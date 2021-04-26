@@ -1,5 +1,5 @@
 <template>
-  <nav class="navigation">
+  <nav :class="showNavigation">
     <div class="menu">
       <md-button
         class="md-button menu__item"
@@ -10,6 +10,7 @@
           :to="link.link"
           class="menu__item_link"
           active-class="menu__item_active"
+          exact
         >
           <div class="menu__img">
             <md-icon>{{ link.icon }}</md-icon>
@@ -18,44 +19,19 @@
         </router-link></md-button
       >
     </div>
-    <md-drawer :md-active.sync="showNavigation" md-swipeable>
-      <md-toolbar class="md-transparent" md-elevation="0">
-        <span class="md-title">My App name</span>
-      </md-toolbar>
-
-      <md-list>
-        <md-list-item>
-          <md-icon>move_to_inbox</md-icon>
-          <span class="md-list-item-text">Inbox</span>
-        </md-list-item>
-
-        <md-list-item>
-          <md-icon>send</md-icon>
-          <span class="md-list-item-text">Sent Mail</span>
-        </md-list-item>
-
-        <md-list-item>
-          <md-icon>delete</md-icon>
-          <span class="md-list-item-text">Trash</span>
-        </md-list-item>
-
-        <md-list-item>
-          <md-icon>error</md-icon>
-          <span class="md-list-item-text">Spam</span>
-        </md-list-item>
-      </md-list>
-    </md-drawer>
+    <!-- <md-drawer :md-active.sync="showNavigation" md-swipeable> </md-drawer> -->
   </nav>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { MyStore } from "@/store/store/store";
+import { useStore } from "vuex-simple";
 @Component({
   data() {
     return {
-      showNavigation: false,
       routers: [
-        { text: "Замітки", link: "/task", icon: "task" }, //checklist
+        { text: "Замітки", link: "/", icon: "task" }, //checklist
         { text: "Нагадування", link: "/reminder", icon: "timelapse" },
         { text: "Документи", link: "/documents", icon: "text_snippet" },
         { text: "Плани", link: "/plans", icon: "format_list_numbered" },
@@ -64,12 +40,21 @@ import { Component, Vue } from "vue-property-decorator";
         { text: "Календар", link: "/calendar", icon: "event" },
         { text: "Архів", link: "/archive", icon: "archive" },
         { text: "Корзина", link: "/been", icon: "delete" },
-        { text: "About", link: "/about" },
+        { text: "Login", link: "/login" },
       ],
     };
   },
 })
-export default class App extends Vue {}
+export default class NavBar extends Vue {
+  public store: MyStore = useStore(this.$store);
+  private get showNavigation() {
+    return {
+      navigation: true,
+      transformTranslateX100: this.store.menuToggle,
+      transformTranslateX0: !this.store.menuToggle,
+    };
+  }
+}
 </script>
 
 <style lang="scss">

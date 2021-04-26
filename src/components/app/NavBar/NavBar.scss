@@ -1,20 +1,20 @@
 .navigation {
   grid-area: nav;
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
 }
 .menu {
-  font-family: "Montserrat", sans-serif;
   flex-grow: 1;
   &__text {
     font-size: 15px;
     line-height: 17px;
     justify-self: start;
+    margin: 0 0 0px 7px;
   }
   &__img {
     background-size: cover;
     justify-self: center;
+    margin: 0 0 0 5px;
   }
   &__item {
     display: grid;
@@ -56,4 +56,12 @@
 
 .menu__img > .md-icon.md-theme-default.md-icon-font {
   color: $black;
+}
+.transformTranslateX100 {
+  transform: translate(-100%);
+  transition: all 1s;
+}
+.transformTranslateX0 {
+  transform: translate(0%);
+  transition: all 1s;
 }

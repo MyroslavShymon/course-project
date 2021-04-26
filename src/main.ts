@@ -12,6 +12,7 @@ import {
   MdIcon,
   MdDrawer,
   MdToolbar,
+  MdContent,
 } from "vue-material/dist/components";
 import "vue-material/dist/vue-material.min.css";
 import "vue-material/dist/theme/default.css";
@@ -23,6 +24,7 @@ Vue.use(MdList);
 Vue.use(MdIcon);
 Vue.use(MdDrawer);
 Vue.use(MdToolbar);
+Vue.use(MdContent);
 
 Vue.config.productionTip = false;
 

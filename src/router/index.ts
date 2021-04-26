@@ -6,16 +6,16 @@ Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
-    path: "/task",
+    path: "/",
     name: "task",
     meta: { layout: "main" },
     component: Task,
   },
   {
-    path: "/about",
-    name: "about",
+    path: "/login",
+    name: "login",
     meta: { layout: "empty" },
-    component: () => import("../views/About.vue"),
+    component: () => import("../views/Login.vue"),
   },
   {
     path: "/archive",

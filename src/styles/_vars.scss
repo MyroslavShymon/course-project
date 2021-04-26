@@ -3,19 +3,24 @@ $white: #ffffff;
 // $grey-text: #424242;
 $grey-light: #f0f2f5;
 $black: #000000c7;
-// $grey-lightest-text: #b4b4b4;
+$grey-lightest-text: #b4b4b4;
 // $brown-darkest-text: #635f44;
 // $brown-text: #737269;
 // $brown-light-text: #cccabd;
 // $blue-text: #3b5997;
 // $black-grey: #282c2a;
 $main-purple: #a279ff;
+$dark-purple: #7b41ff;
+$main-yellow: #ffe969;
 $light-purple: rgba(162, 121, 255, 0.5);
 .grey-light {
   background-color: $grey-light;
 }
 .main-purple-bg {
   background-color: $main-purple !important;
+}
+.main-yellow-bg {
+  background-color: $main-yellow !important;
 }
 .main-purple-txt {
   color: $main-purple;
