@@ -1,21 +1,24 @@
 <template>
-  <validation-observer v-slot="{ invalid }" class="form-header-auth">
-    <form class="md-layout form__inner">
-      <div class="form__inputs-wrapper">
-        <EmailInput />
-        <PasswordInput class="margin-right-10" />
-      </div>
-      <md-button
-        type="submit"
-        class="btn-second margin-right-10"
-        variant="success"
-        :disabled="invalid && btnShow"
-        >Login</md-button
-      >
-      <!-- make router link in future -->
-      <span class="form__forgot margin-right-10">Forgot the password?</span>
-    </form>
-  </validation-observer>
+  <div class="form-header-auth">
+    <span class="logo">ToDoList+</span>
+    <validation-observer v-slot="{ invalid }">
+      <form class="md-layout form__inner">
+        <div class="form__inputs-wrapper">
+          <EmailInput class="margin-right-10" />
+          <PasswordInput class="margin-right-10" />
+        </div>
+        <md-button
+          type="submit"
+          class="margin-right-10 md-raised md-primary"
+          variant="success"
+          :disabled="invalid && btnShow"
+          >Login</md-button
+        >
+        <!-- make router link in future -->
+        <span class="form__forgot margin-right-10">Forgot the password?</span>
+      </form>
+    </validation-observer>
+  </div>
 </template>
 
 <script lang="ts">
@@ -77,11 +80,20 @@ export default class Login extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.logo {
+  margin-left: 23px;
+}
 .form-header-auth {
   grid-area: header;
   box-shadow: 0px 5px 5px -5px rgba(34, 60, 80, 0.6);
   position: sticky;
   top: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+.form__forgot {
+  margin: 0;
 }
 .margin-right-10 {
   margin-right: 10px !important;
@@ -92,5 +104,9 @@ export default class Login extends Vue {
 }
 .form__inputs-wrapper {
   display: flex;
+}
+.md-button.md-theme-default.md-raised:not([disabled]).md-primary {
+  color: $black;
+  background-color: $main-yellow;
 }
 </style>

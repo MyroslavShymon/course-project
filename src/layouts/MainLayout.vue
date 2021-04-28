@@ -12,10 +12,9 @@ import { Component, Vue } from "vue-property-decorator";
 import { MyStore } from "@/store/store/store";
 import { useStore } from "vuex-simple";
 
-import store from "@/store";
 import NavBar from "@/components/app/NavBar/NavBar.vue";
 import Header from "@/components/app/Header/Header.vue";
-import HeaderAuth from "@/components/HeaderAuth.vue";
+import HeaderAuth from "@/components/app/HeaderAuth.vue";
 
 @Component({
   components: {

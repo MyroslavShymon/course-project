@@ -28,55 +28,59 @@
 import { Component, Vue } from "vue-property-decorator";
 import { MyStore } from "@/store/store/store";
 import { useStore } from "vuex-simple";
-@Component({
-  data() {
-    return {
-      routers: [
-        { text: "Замітки", link: "/", icon: "task" }, //checklist
-        {
-          text: "Нагадування",
-          link: "/reminder",
-          icon: "timelapse",
-        },
-        {
-          text: "Документи",
-          link: "/documents",
-          icon: "text_snippet",
-          disabled: "",
-        },
-        {
-          text: "Плани",
-          link: "/plans",
-          icon: "format_list_numbered",
-          disabled: "",
-        },
-        { text: "Чати", link: "/chats", icon: "groups", disabled: "" },
-        {
-          text: "Менеджер витрат",
-          link: "/manager",
-          icon: "paid",
-          disabled: "",
-        },
-        {
-          text: "Календар",
-          link: "/calendar",
-          icon: "event",
-          disabled: "",
-        },
-        { text: "Архів", link: "/archive", icon: "archive", disabled: "" },
-        { text: "Корзина", link: "/been", icon: "delete", disabled: "" },
-        { text: "Login", link: "/login" },
-      ],
-    };
-  },
-})
+@Component
 export default class NavBar extends Vue {
+  public routers = [
+    { text: "Замітки", link: "/", icon: "task", disabled: null }, //checklist
+    {
+      text: "Нагадування",
+      link: "/reminder",
+      icon: "timelapse",
+      disabled: null,
+    },
+    {
+      text: "Документи",
+      link: "/documents",
+      icon: "text_snippet",
+      disabled: "",
+    },
+    {
+      text: "Плани",
+      link: "/plans",
+      icon: "format_list_numbered",
+      disabled: "",
+    },
+    { text: "Чати", link: "/chats", icon: "groups", disabled: "" },
+    {
+      text: "Менеджер витрат",
+      link: "/manager",
+      icon: "paid",
+      disabled: "",
+    },
+    {
+      text: "Календар",
+      link: "/calendar",
+      icon: "event",
+      disabled: "",
+    },
+    { text: "Архів", link: "/archive", icon: "archive", disabled: "" },
+    { text: "Корзина", link: "/been", icon: "delete", disabled: "" },
+    { text: "Login", link: "/login" },
+  ];
   public store: MyStore = useStore(this.$store);
   private get showNavigation() {
     return {
       transformTranslateX100: !this.store.menuOpened,
       transformTranslateX0: this.store.menuOpened,
     };
+  }
+  mounted() {
+    if (this.store.isAuth == true) {
+      this.routers.map((router) => {
+        console.log("mounted disabled", router);
+        router.disabled = null;
+      });
+    }
   }
 }
 </script>
