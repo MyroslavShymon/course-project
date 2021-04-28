@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="app">
     <component :is="layout">
       <router-view />
     </component>
@@ -24,4 +24,8 @@ import MainLayout from "@/layouts/MainLayout.vue";
 export default class App extends Vue {}
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+#app {
+  height: 100vh;
+}
+</style>

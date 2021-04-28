@@ -1,59 +1,69 @@
 <template>
-  <div class="app-wrapper">
-    <Header />
+  <div class="app-wrapper" :class="appWrapperState">
+    <HeaderAuth v-if="!isAuth" />
+    <Header v-if="isAuth" />
     <NavBar />
-    <router-view :class="appWrapper"></router-view>
+    <router-view class="app-content" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import NavBar from "@/components/app/NavBar/NavBar.vue";
-import Header from "@/components/app/Header/Header.vue";
 import { MyStore } from "@/store/store/store";
 import { useStore } from "vuex-simple";
+
 import store from "@/store";
+import NavBar from "@/components/app/NavBar/NavBar.vue";
+import Header from "@/components/app/Header/Header.vue";
+import HeaderAuth from "@/components/HeaderAuth.vue";
+
 @Component({
   components: {
     NavBar,
     Header,
+    HeaderAuth,
   },
 })
 export default class MainLayout extends Vue {
   private store: MyStore = useStore(this.$store);
 
-  private get appWrapper() {
+  private get isAuth(): boolean {
+    return this.store.isAuth;
+  }
+
+  private get menuOpened(): boolean {
+    return this.store.menuOpened;
+  }
+
+  private get appWrapperState() {
     return {
-      "app-wrapper-content": !this.store.menuToggle,
-      "app-wrapper-content-100": this.store.menuToggle,
+      "app-wrapper-compressed ": this.store.menuOpened,
+      "app-wrapper-full": !this.store.menuOpened,
     };
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.app-wrapper {
-  display: grid;
-  grid-template-areas:
-    "header header"
-    "nav main";
-  grid-template-rows: 70px 1fr;
-  grid-template-columns: 245px 1fr;
-  height: 100vh;
-  overflow-x: hidden;
-}
-
-.app-wrapper-content {
-  grid-area: main;
-  transition: all 1s ease-out;
-  border-left: 1px solid rgba(0, 0, 0, 0.1);
-}
-.app-wrapper-content-100 {
-  grid-area: main;
-  border-left: 1px solid rgba(0, 0, 0, 0.1);
-  transform: translate(-16%);
-  width: 119%;
-  transition: all 1s ease-in;
-  border: 0;
+.app {
+  &-wrapper {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 74px 1fr;
+    &-compressed {
+      grid-template-areas:
+        "header header"
+        "nav main";
+      grid-template-columns: 245px 1fr;
+    }
+    &-full {
+      grid-template-areas:
+        "header"
+        "main";
+    }
+  }
+  &-content {
+    padding: 10px;
+  }
 }
 </style>

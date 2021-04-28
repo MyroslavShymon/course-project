@@ -1,12 +1,13 @@
 <template>
-  <header class="header">
+  <header class="header" :class="{ 'border-show': !menuOpened }">
     <div class="header__logo-wrapper">
       <md-button class="md-icon-button" @click="toggleClasses">
         <md-icon>menu</md-icon>
       </md-button>
-      <router-link to="/task" class="header__logo">ToDoList+</router-link>
+      <router-link to="/" class="logo">ToDoList+</router-link>
+      <span class="header__logo-lang">UA</span>
     </div>
-    <div class="header__inner">
+    <div class="header__inner" :class="{ 'border-show': menuOpened }">
       <form method="get" action="" class="search">
         <a class="search__loupe search-img"></a>
         <input
@@ -40,44 +41,21 @@ import { useStore } from "vuex-simple";
       searchQuery: "",
     };
   },
-  //   methods: {
-  //     tranformForm() {
-  //       this.clicked = true;
-  //     },
-  //   },
-  //   computed: {
-  // classObject: function() {
-  //   return {
-  //     search: this.clicked == false,
-  //     search_active: this.clicked == true,
-  //   };
-  // },
-  //   },
 })
 export default class Header extends Vue {
   public store: MyStore = useStore(this.$store);
   private toggleClasses(): void {
-    this.store.menuToggle = !this.store.menuToggle;
+    this.store.menuOpened = !this.store.menuOpened;
   }
-
-  // private clicked = false;
-  // private searchQuery!: string;
-  // private tranformForm() {
-  //   console.log("clicked", this.clicked);
-  //   this.clicked = true;
-  // }
-  // private get classObject() {
-  //   const element = this.$refs.searchInput as HTMLElement;
-  //   console.log("this.searchQuery", this.searchQuery, element.classList);
-  //   return {
-  //     search__main: true,
-  //     search_passive: this.clicked == false,
-  //     search_active: this.clicked == true,
-  //   };
-  // }
+  private get menuOpened() {
+    return this.store.menuOpened;
+  }
 }
 </script>
 
 <style lang="scss">
 @import "./Header.scss";
+.border-show {
+  border-bottom: 1px solid $border-main-grey;
+}
 </style>

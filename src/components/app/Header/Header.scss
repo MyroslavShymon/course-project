@@ -47,11 +47,27 @@
   grid-template-columns: 245px 1fr;
   align-items: center;
   grid-area: header;
+  &__logo {
+    &-wrapper {
+      display: grid;
+      align-items: center;
+      height: 70px;
+      grid-template-columns: 26.5909092% 62.0454548% 11.36363636%;
+      border-right: 1px solid rgba(0, 0, 0, 0.1);
+      justify-items: center;
+    }
+    &-lang {
+      color: rgba(0, 0, 0, 0.7);
+      top: 10px;
+      position: absolute;
+      left: 215px;
+    }
+  }
   &__inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0);
     height: 100%;
   }
 }

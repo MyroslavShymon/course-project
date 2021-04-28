@@ -6,9 +6,11 @@ export class MyStore {
   @State()
   public version = "2.0.0";
   @State()
-  public menuToggle = false;
+  public menuOpened = true;
   @State()
   public validEmail = false;
   @State()
   public validPassword = false;
+  @State()
+  public isAuth = false;
 }

@@ -1,0 +1,17 @@
+//logo
+.logo {
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-size: 23px;
+  color: #a279ff !important;
+  font-family: "Russo One", sans-serif;
+  &::before {
+    content: "";
+    background-image: url("~@/assets/logo.svg");
+    display: inline-block;
+    width: 27px;
+    height: 27px;
+    margin-right: 5px;
+  }
+}

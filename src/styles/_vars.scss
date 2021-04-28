@@ -4,6 +4,7 @@ $white: #ffffff;
 $grey-light: #f0f2f5;
 $black: #000000c7;
 $grey-lightest-text: #b4b4b4;
+$border-main-grey: rgba(0, 0, 0, 0.1);
 // $brown-darkest-text: #635f44;
 // $brown-text: #737269;
 // $brown-light-text: #cccabd;
@@ -24,4 +25,7 @@ $light-purple: rgba(162, 121, 255, 0.5);
 }
 .main-purple-txt {
   color: $main-purple;
+}
+.flex-direction-column {
+  flex-direction: column;
 }

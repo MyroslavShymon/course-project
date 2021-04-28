@@ -1,3 +1,5 @@
 <template>
-  <h2>Archive</h2>
+  <div>
+    <h2>Archive</h2>
+  </div>
 </template>

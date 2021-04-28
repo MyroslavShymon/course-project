@@ -2,7 +2,7 @@
   <div class="login-block">
     <div class="login-block__inner">
       <div>
-        <span class="header__logo">ToDoList+</span>
+        <span class="logo">ToDoList+</span>
         <div class="login-block__recent">
           <h3>Recent Logins</h3>
           <span class="login-block__description"
@@ -10,10 +10,13 @@
           >
         </div>
       </div>
-      <md-content class="form-wrapper">
+      <md-content class="form-wrapper flex-direction-column">
         <h3>Login</h3>
         <validation-observer v-slot="{ invalid }" class="form">
-          <form class="md-layout form__inner" @submit.prevent="validatePerson">
+          <form
+            class="md-layout form__inner flex-direction-column"
+            @submit.prevent="validatePerson"
+          >
             <div class="form__inputs-wrapper">
               <EmailInput />
               <PasswordInput />
@@ -23,7 +26,7 @@
               class="md-raised md-primary"
               variant="success"
               :disabled="invalid && btnShow"
-              >Create user</md-button
+              >Login</md-button
             >
             <!-- make router link in future -->
             <span class="form__forgot">Forgot the password?</span>
@@ -40,13 +43,14 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { MyStore } from "@/store/store/store";
-import { useStore } from "vuex-simple";
-import EmailInput from "@/components/inputs/EmailInpur.vue";
-import PasswordInput from "@/components/inputs/PasswordInpur.vue";
-
 import { extend, setInteractionMode, ValidationObserver } from "vee-validate";
 import { required, min, email } from "vee-validate/dist/rules";
+import { MyStore } from "@/store/store/store";
+import { useStore } from "vuex-simple";
+
+import EmailInput from "@/components/inputs/EmailInput.vue";
+import PasswordInput from "@/components/inputs/PasswordInput.vue";
+
 setInteractionMode("eager");
 extend("required", {
   ...required,
@@ -90,6 +94,7 @@ export default class Login extends Vue {
     }
   }
   private validatePerson() {
+    this.store.isAuth = true;
     console.log("validatePerson");
   }
 }
@@ -117,5 +122,11 @@ export default class Login extends Vue {
     color: $grey-lightest-text;
     font-weight: 700;
   }
+}
+.form__forgot {
+  margin: 25px 0 0 0;
+}
+.form__inputs-wrapper {
+  background: white;
 }
 </style>

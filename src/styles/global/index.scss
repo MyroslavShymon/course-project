@@ -1,0 +1,17 @@
+@import "./_logo.scss";
+@import "./_form.scss";
+@import "./_titles.scss";
+
+.empty-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10rem;
+  height: 100vh;
+}
+
+.btn-second {
+  background-color: $main-yellow !important;
+  color: $black !important;
+  font-weight: 700;
+}

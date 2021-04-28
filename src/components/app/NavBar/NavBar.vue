@@ -1,10 +1,11 @@
 <template>
-  <nav :class="showNavigation">
+  <nav class="navigation" :class="showNavigation">
     <div class="menu">
       <md-button
         class="md-button menu__item"
         v-for="(link, index) of routers"
         :key="index"
+        :disabled="link.disabled"
       >
         <router-link
           :to="link.link"
@@ -32,14 +33,38 @@ import { useStore } from "vuex-simple";
     return {
       routers: [
         { text: "Замітки", link: "/", icon: "task" }, //checklist
-        { text: "Нагадування", link: "/reminder", icon: "timelapse" },
-        { text: "Документи", link: "/documents", icon: "text_snippet" },
-        { text: "Плани", link: "/plans", icon: "format_list_numbered" },
-        { text: "Чати", link: "/chats", icon: "groups" },
-        { text: "Менеджер витрат", link: "/manager", icon: "paid" },
-        { text: "Календар", link: "/calendar", icon: "event" },
-        { text: "Архів", link: "/archive", icon: "archive" },
-        { text: "Корзина", link: "/been", icon: "delete" },
+        {
+          text: "Нагадування",
+          link: "/reminder",
+          icon: "timelapse",
+        },
+        {
+          text: "Документи",
+          link: "/documents",
+          icon: "text_snippet",
+          disabled: "",
+        },
+        {
+          text: "Плани",
+          link: "/plans",
+          icon: "format_list_numbered",
+          disabled: "",
+        },
+        { text: "Чати", link: "/chats", icon: "groups", disabled: "" },
+        {
+          text: "Менеджер витрат",
+          link: "/manager",
+          icon: "paid",
+          disabled: "",
+        },
+        {
+          text: "Календар",
+          link: "/calendar",
+          icon: "event",
+          disabled: "",
+        },
+        { text: "Архів", link: "/archive", icon: "archive", disabled: "" },
+        { text: "Корзина", link: "/been", icon: "delete", disabled: "" },
         { text: "Login", link: "/login" },
       ],
     };
@@ -49,9 +74,8 @@ export default class NavBar extends Vue {
   public store: MyStore = useStore(this.$store);
   private get showNavigation() {
     return {
-      navigation: true,
-      transformTranslateX100: this.store.menuToggle,
-      transformTranslateX0: !this.store.menuToggle,
+      transformTranslateX100: !this.store.menuOpened,
+      transformTranslateX0: this.store.menuOpened,
     };
   }
 }
