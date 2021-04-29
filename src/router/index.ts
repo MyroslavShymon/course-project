@@ -18,6 +18,12 @@ const routes: Array<RouteConfig> = [
     component: () => import("../views/Login.vue"),
   },
   {
+    path: "/restoration-password",
+    name: "restoration-password",
+    meta: { layout: "empty-auth" },
+    component: () => import("../views/RestorationPassword.vue"),
+  },
+  {
     path: "/archive",
     name: "archive",
     meta: { layout: "main" },

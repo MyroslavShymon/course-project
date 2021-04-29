@@ -31,7 +31,7 @@ import { useStore } from "vuex-simple";
 import ILang from "@/store/interfaces/ILang";
 
 @Component
-export default class MainLayout extends Vue {
+export default class Footer extends Vue {
   private store: MyStore = useStore(this.$store);
 
   private get languages(): ILang[] {

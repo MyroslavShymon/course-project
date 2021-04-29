@@ -26,10 +26,8 @@ export default class Task extends Vue {
   private password!: string;
   public store: MyStore = useStore(this.$store);
   dataShow() {
-    console.log("password", this.password, "email", this.email);
     this.store.user.password = this.password;
     this.store.user.email = this.email;
-    console.log("user", this.store.user);
   }
 }
 </script>

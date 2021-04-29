@@ -1,59 +1,57 @@
 <template>
-  <div class="login-wrapper">
-    <div class="login-block">
-      <div class="login-block__inner">
-        <div>
-          <span class="logo">ToDoList+</span>
-          <div class="login-block__recent">
-            <h3>Recent Logins</h3>
-            <span class="login-block__description"
-              >Click your picture or add an account.</span
-            >
-          </div>
+  <div class="login-block">
+    <div class="login-block__inner">
+      <div>
+        <span class="logo">ToDoList+</span>
+        <div class="login-block__recent">
+          <h3>Recent Logins</h3>
+          <span class="login-block__description"
+            >Click your picture or add an account.</span
+          >
         </div>
-        <md-content class="form-wrapper flex-direction-column">
-          <h3>Login</h3>
-          <validation-observer v-slot="{ invalid }" class="form">
-            <form
-              class="md-layout form__inner flex-direction-column"
-              @submit.prevent="validatePerson"
-            >
-              <div class="form__inputs-wrapper">
-                <EmailInput />
-                <PasswordInput />
-              </div>
-              <md-button
-                type="submit"
-                class="md-raised md-primary"
-                variant="success"
-                :disabled="invalid && btnShow"
-                >Login</md-button
-              >
-              <!-- make router link in future -->
-              <span class="form__forgot">Forgot the password?</span>
-              <hr />
-              <md-button class="md-raised md-primary btn-second">
-                Register
-              </md-button>
-            </form>
-          </validation-observer>
-        </md-content>
       </div>
+      <md-content class="form-wrapper flex-direction-column">
+        <h3>Login</h3>
+        <validation-observer v-slot="{ invalid }" class="form">
+          <form
+            class="md-layout form__inner flex-direction-column"
+            @submit.prevent="validatePerson"
+          >
+            <div class="form__inputs-wrapper">
+              <EmailInput />
+              <PasswordInput />
+            </div>
+            <ButtonSubmit
+              btnName="Login"
+              :invalid="invalid"
+              :btnShow="btnShow"
+            />
+            <RouterText
+              link="/restoration-password"
+              text="Forgot the password?"
+            />
+            <hr />
+            <md-button class="md-raised md-primary btn-second">
+              Register
+            </md-button>
+          </form>
+        </validation-observer>
+      </md-content>
     </div>
-    <Footer />
   </div>
 </template>
 
 <script lang="ts">
+import { useStore } from "vuex-simple";
 import { Component, Vue } from "vue-property-decorator";
 import { extend, setInteractionMode, ValidationObserver } from "vee-validate";
 import { required, min, email } from "vee-validate/dist/rules";
 import { MyStore } from "@/store/store/store";
-import { useStore } from "vuex-simple";
 
 import EmailInput from "@/components/inputs/EmailInput.vue";
 import PasswordInput from "@/components/inputs/PasswordInput.vue";
-import Footer from "@/components/app/Footer.vue";
+import ButtonSubmit from "@/components/form/ButtonSubmit.vue";
+import RouterText from "@/components/form/RouterText.vue";
 
 setInteractionMode("eager");
 extend("required", {
@@ -79,7 +77,8 @@ extend("email", {
     EmailInput,
     PasswordInput,
     ValidationObserver,
-    Footer,
+    ButtonSubmit,
+    RouterText,
   },
 })
 export default class Login extends Vue {
@@ -100,16 +99,12 @@ export default class Login extends Vue {
   }
   private validatePerson() {
     this.store.isAuth = true;
-    console.log("validatePerson");
   }
 }
 </script>
 
 <style lang="scss">
 .login {
-  &-wrapper {
-    width: 100%;
-  }
   &-block {
     width: 60%;
     display: flex;
@@ -121,7 +116,7 @@ export default class Login extends Vue {
       width: 100%;
       justify-content: space-between;
       .form-wrapper {
-        margin: 30px 0 0 0;
+        margin: 30px auto 0 auto;
       }
     }
     &__recent {
@@ -134,10 +129,12 @@ export default class Login extends Vue {
     }
   }
 }
-.form__forgot {
-  margin: 25px 0 0 0;
-}
-.form__inputs-wrapper {
-  background: white;
+.form {
+  &__forgot {
+    margin: 25px 0 0 0;
+  }
+  &__inputs-wrapper {
+    background: white;
+  }
 }
 </style>

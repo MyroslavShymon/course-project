@@ -8,8 +8,11 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+
 import EmptyLayout from "@/layouts/EmptyLayout.vue";
 import MainLayout from "@/layouts/MainLayout.vue";
+import EmptyAuthLayout from "@/layouts/EmptyAuthLayout.vue";
+
 @Component({
   computed: {
     layout() {
@@ -19,6 +22,7 @@ import MainLayout from "@/layouts/MainLayout.vue";
   components: {
     EmptyLayout,
     MainLayout,
+    EmptyAuthLayout,
   },
 })
 export default class App extends Vue {}
@@ -27,5 +31,6 @@ export default class App extends Vue {}
 <style lang="scss">
 #app {
   height: 100vh;
+  background-color: $white;
 }
 </style>

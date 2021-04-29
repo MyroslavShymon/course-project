@@ -2,7 +2,7 @@
   <nav class="navigation" :class="showNavigation">
     <div class="menu">
       <md-button
-        class="md-button menu__item"
+        class="md-button menu__item menu__button"
         v-for="(link, index) of routers"
         :key="index"
         :disabled="link.disabled"
@@ -20,6 +20,7 @@
         </router-link></md-button
       >
     </div>
+    <span style="display:none">{{ isAuth }}</span>
     <!-- <md-drawer :md-active.sync="showNavigation" md-swipeable> </md-drawer> -->
   </nav>
 </template>
@@ -28,45 +29,11 @@
 import { Component, Vue } from "vue-property-decorator";
 import { MyStore } from "@/store/store/store";
 import { useStore } from "vuex-simple";
+
+import IRouter from "@/store/interfaces/IRouter";
+
 @Component
 export default class NavBar extends Vue {
-  public routers = [
-    { text: "Замітки", link: "/", icon: "task", disabled: null }, //checklist
-    {
-      text: "Нагадування",
-      link: "/reminder",
-      icon: "timelapse",
-      disabled: null,
-    },
-    {
-      text: "Документи",
-      link: "/documents",
-      icon: "text_snippet",
-      disabled: "",
-    },
-    {
-      text: "Плани",
-      link: "/plans",
-      icon: "format_list_numbered",
-      disabled: "",
-    },
-    { text: "Чати", link: "/chats", icon: "groups", disabled: "" },
-    {
-      text: "Менеджер витрат",
-      link: "/manager",
-      icon: "paid",
-      disabled: "",
-    },
-    {
-      text: "Календар",
-      link: "/calendar",
-      icon: "event",
-      disabled: "",
-    },
-    { text: "Архів", link: "/archive", icon: "archive", disabled: "" },
-    { text: "Корзина", link: "/been", icon: "delete", disabled: "" },
-    { text: "Login", link: "/login" },
-  ];
   public store: MyStore = useStore(this.$store);
   private get showNavigation() {
     return {
@@ -74,14 +41,23 @@ export default class NavBar extends Vue {
       transformTranslateX0: this.store.menuOpened,
     };
   }
-  mounted() {
+
+  private get routers(): IRouter[] {
+    return this.store.routers;
+  }
+
+  private get isAuth(): boolean {
     if (this.store.isAuth == true) {
-      this.routers.map((router) => {
-        console.log("mounted disabled", router);
+      this.store.routers.map((router: IRouter) => {
         router.disabled = null;
       });
     }
+    return this.store.isAuth;
   }
+
+  // private getAuth(): void {
+
+  // }
 }
 </script>
 

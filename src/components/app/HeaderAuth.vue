@@ -2,20 +2,22 @@
   <div class="form-header-auth">
     <span class="logo">ToDoList+</span>
     <validation-observer v-slot="{ invalid }">
-      <form class="md-layout form__inner">
+      <form class="md-layout form__inner" @submit.prevent="validatePerson">
         <div class="form__inputs-wrapper">
           <EmailInput class="margin-right-10" />
           <PasswordInput class="margin-right-10" />
         </div>
-        <md-button
-          type="submit"
-          class="margin-right-10 md-raised md-primary"
-          variant="success"
-          :disabled="invalid && btnShow"
-          >Login</md-button
-        >
-        <!-- make router link in future -->
-        <span class="form__forgot margin-right-10">Forgot the password?</span>
+        <ButtonSubmit
+          btnName="Login"
+          :invalid="invalid"
+          :btnShow="btnShow"
+          class="margin-right-10"
+        />
+        <RouterText
+          link="/restoration-password"
+          text="Forgot the password?"
+          class="margin-right-10"
+        />
       </form>
     </validation-observer>
   </div>
@@ -30,6 +32,8 @@ import { useStore } from "vuex-simple";
 
 import EmailInput from "@/components/inputs/EmailInput.vue";
 import PasswordInput from "@/components/inputs/PasswordInput.vue";
+import ButtonSubmit from "@/components/form/ButtonSubmit.vue";
+import RouterText from "@/components/form/RouterText.vue";
 
 setInteractionMode("eager");
 extend("required", {
@@ -55,9 +59,11 @@ extend("email", {
     EmailInput,
     PasswordInput,
     ValidationObserver,
+    ButtonSubmit,
+    RouterText,
   },
 })
-export default class Login extends Vue {
+export default class HeaderAuth extends Vue {
   public store: MyStore = useStore(this.$store);
   private email!: string;
   private password!: string;
@@ -74,36 +80,40 @@ export default class Login extends Vue {
     }
   }
   private validatePerson() {
-    console.log("validatePerson");
+    this.store.isAuth = true;
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.form {
+  &-header-auth {
+    grid-area: header;
+    box-shadow: 0px 5px 5px -5px rgba(34, 60, 80, 0.6);
+    position: sticky;
+    top: 0;
+    display: grid;
+    grid-template-columns: 3fr 4fr;
+    align-items: center;
+    height: 74px;
+  }
+  &__forgot {
+    margin: 0;
+  }
+  &__inner {
+    align-items: center;
+    justify-content: flex-end;
+  }
+  &__inputs-wrapper {
+    display: flex;
+    background: none;
+  }
+}
 .logo {
   margin-left: 23px;
 }
-.form-header-auth {
-  grid-area: header;
-  box-shadow: 0px 5px 5px -5px rgba(34, 60, 80, 0.6);
-  position: sticky;
-  top: 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-}
-.form__forgot {
-  margin: 0;
-}
 .margin-right-10 {
   margin-right: 10px !important;
-}
-.form__inner {
-  align-items: center;
-  justify-content: flex-end;
-}
-.form__inputs-wrapper {
-  display: flex;
 }
 .md-button.md-theme-default.md-raised:not([disabled]).md-primary {
   color: $black;
