@@ -1,3 +1,14 @@
 {
-  "app": "App"
+  "app": "App",
+  "menu": {
+    "notes": "notes",
+    "reminder": "reminder",
+    "documents": "documents",
+    "plans": "plans",
+    "chats": "chats",
+    "cost_manager": "cost manager",
+    "calendar": "calendar",
+    "archive": "archive",
+    "basket": "basket"
+  }
 }

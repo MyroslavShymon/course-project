@@ -1,12 +1,12 @@
 <template>
   <div id="app">
     <v-app>
-      <v-app-bar app clipped-left color="primary">
+      <v-app-bar app clipped-left>
         <v-col cols="4" md="2" class="pa-0 d-flex align-center">
           <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-          <span class="organizer ml-3 mr-5">Organizer++</span>
+          <span class="organizer mx-3 primary--text d-flex">Organizer++</span>
         </v-col>
-        <v-col cols="7" sm="7" md="4" class="pa-0">
+        <v-col cols="7" sm="7" md="4">
           <v-text-field
             solo-inverted
             flat
@@ -18,7 +18,7 @@
         <v-spacer></v-spacer>
       </v-app-bar>
       <v-navigation-drawer v-model="drawer" app clipped color="white">
-        <v-list dense class="pt-0">
+        <v-list dense class="pt-0 pr-3">
           <template v-for="(item, i) in items">
             <v-hover v-slot:default="{ hover }" :key="i">
               <!-- <v-row v-if="item.heading" :key="i" align="center">
@@ -38,26 +38,28 @@
                 class="my-4"
               ></v-divider> -->
               <!-- v-else  -->
-
-              <v-list-item :key="i" link class="rounded-r-xl">
-                <v-list-item-action style="z-index: 20">
-                  <v-icon color="grey">{{ item.icon }}</v-icon>
-                </v-list-item-action>
-                <v-expand-transition>
-                  <v-overlay
-                    absolute
-                    color="grey rounded-r-xl"
-                    :opacity="0.6"
-                    :value="hover"
-                  >
-                  </v-overlay>
-                </v-expand-transition>
-                <v-list-item-content style="z-index: 20">
-                  <v-list-item-title class="black--text">
-                    {{ item.text }}
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
+              <router-link :to="item.link" style="text-decoration: none">
+                <v-list-item :key="i" link class="rounded-r-xl">
+                  <v-list-item-action style="z-index: 20" class="my-2 mr-7">
+                    <v-icon>{{ item.icon }}</v-icon>
+                  </v-list-item-action>
+                  <v-expand-transition>
+                    <v-overlay
+                      absolute
+                      color="grey lighten-2"
+                      class="rounded-r-xl"
+                      :opacity="0.6"
+                      :value="hover"
+                    >
+                    </v-overlay>
+                  </v-expand-transition>
+                  <v-list-item-content style="z-index: 20">
+                    <v-list-item-title class="black--text">
+                      {{ $t(`menu.${item.text}`) }}
+                    </v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </router-link>
             </v-hover>
           </template>
         </v-list>
@@ -75,31 +77,65 @@ export default Vue.extend({
   data: () => ({
     drawer: null,
     items: [
-      { icon: "lightbulb_outline", text: "Notes" },
-      { icon: "touch_app", text: "Reminders" },
-      { icon: "add", text: "Create new label" },
-      { icon: "archive", text: "Archive" },
-      { icon: "delete", text: "Trash" },
-      { icon: "settings", text: "Settings" },
-      { icon: "chat_bubble", text: "Trash" },
-      { icon: "help", text: "Help" },
-      { icon: "phonelink", text: "App downloads" },
-      { icon: "keyboard", text: "Keyboard shortcuts" },
+      { icon: "task", text: "notes", link: "/" },
+      { icon: "mdi-bell", text: "reminder", link: "/reminder" },
+      { icon: "mdi-file-document", text: "documents", link: "/documents" },
+      { icon: "mdi-notebook", text: "plans", link: "/plans" },
+      { icon: "mdi-account-group", text: "chats", link: "/chats" },
+      { icon: "mdi-bitcoin", text: "cost_manager", link: "/manager" },
+      { icon: "mdi-calendar", text: "calendar", link: "/calendar" },
+      { icon: "archive", text: "archive", link: "/archive" },
+      { icon: "delete", text: "basket", link: "/basket" },
     ],
   }),
 });
 </script>
 
 <style lang="scss">
+.router-link-exact-active.router-link-active {
+  .v-list-item {
+    background-color: $primary_light;
+  }
+  .v-list-item__action .v-icon {
+    color: $default_lighten_1;
+  }
+  .v-overlay__scrim {
+    opacity: 0 !important;
+  }
+  .v-list-item__title {
+    font-weight: 500 !important;
+  }
+}
 .organizer {
   font-family: "Russo One", sans-serif !important;
-  font-size: 1.25rem !important;
-  font-weight: 500;
+  font-size: 1.5rem !important;
+  font-weight: 700;
   line-height: 2rem;
   letter-spacing: 0.0125em !important;
+  &::before {
+    content: "";
+    background-image: url("~@/assets/logo.svg");
+    display: inline-block;
+    width: 27px;
+    height: 27px;
+    margin-right: 5px;
+  }
+}
+.v-list-item__title {
+  font-size: 16px !important;
+  text-transform: uppercase;
+  font-weight: 350 !important;
 }
 .v-list-item::before {
   border-top-right-radius: 21px;
   border-bottom-right-radius: 21px;
+}
+.v-toolbar__content {
+  padding: 4px 5px !important;
+}
+.v-app-bar {
+  background-color: $white !important;
+  box-shadow: none !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
 }
 </style>
