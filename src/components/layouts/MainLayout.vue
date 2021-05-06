@@ -1,42 +1,48 @@
 <template>
-  <!-- <div class="app-wrapper" :class="appWrapperState">
-    <HeaderAuth v-if="!isAuth" />
-    <Header v-if="isAuth" />
-    <NavBar />
-    <router-view class="app-content" />
-  </div> -->
-  <div></div>
+  <v-app>
+    <Header v-on:mutable-prop-drawer="burgerClicked" />
+    <NavBar :drawer="drawer" />
+    <v-main>
+      <v-container
+        fluid
+        class="fill-height"
+        :class="
+          $vuetify.theme.isDark === false
+            ? 'background_white'
+            : 'background_default_dark_1'
+        "
+      >
+        <router-view class="app-content" />
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-// import { MyStore } from "@/store/store/store";
-// import { useStore } from "vuex-simple";
+import Vue from "vue";
 
-import NavBar from "@/components/app/NavBar/NavBar.vue";
 import Header from "@/components/app/Header/Header.vue";
-import HeaderAuth from "@/components/app/HeaderAuth.vue";
+import NavBar from "@/components/app/NavBar.vue";
 
-@Component({
+export default Vue.extend({
+  name: "App",
+  data: () => ({
+    drawer: true,
+  }),
   components: {
-    NavBar,
     Header,
-    HeaderAuth,
+    NavBar,
   },
-})
-export default class MainLayout extends Vue {
-  //   private store: MyStore = useStore(this.$store);
-  //   private get isAuth(): boolean {
-  //     return this.store.isAuth;
-  //   }
-  //   private get menuOpened(): boolean {
-  //     return this.store.menuOpened;
-  //   }
-  //   private get appWrapperState() {
-  //     return {
-  //       "app-wrapper-compressed ": this.store.menuOpened,
-  //       "app-wrapper-full": !this.store.menuOpened,
-  //     };
-  //   }
-}
+  methods: {
+    burgerClicked(mutableDraver: boolean): void {
+      this.drawer = mutableDraver;
+    },
+  },
+});
 </script>
+
+<style lang="scss">
+.v-toolbar__content {
+  padding: 4px 5px !important;
+}
+</style>

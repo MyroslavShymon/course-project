@@ -1,40 +1,27 @@
 <template>
   <div id="app">
-    <v-app>
-      <Header v-on:mutable-prop-drawer="burgerClicked" />
-      <NavBar :drawer="drawer" />
-      <v-main>
-        <v-container fluid class="grey lighten-4 fill-height"> </v-container>
-      </v-main>
-    </v-app>
+    <component :is="layout">
+      <router-view />
+    </component>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import { Component, Vue } from "vue-property-decorator";
 
-import Header from "@/components/app/Header.vue";
-import NavBar from "@/components/app/NavBar.vue";
+import EmptyLayout from "@/components/layouts/EmptyLayout.vue";
+import MainLayout from "@/components/layouts/MainLayout.vue";
 
-export default Vue.extend({
-  name: "App",
-  data: () => ({
-    drawer: true,
-  }),
-  components: {
-    Header,
-    NavBar,
-  },
-  methods: {
-    burgerClicked(mutableDraver: boolean): void {
-      this.drawer = mutableDraver;
+@Component({
+  computed: {
+    layout() {
+      return (this.$route.meta.layout || "empty") + "-layout";
     },
   },
-});
+  components: {
+    EmptyLayout,
+    MainLayout,
+  },
+})
+export default class App extends Vue {}
 </script>
-
-<style lang="scss">
-.v-toolbar__content {
-  padding: 4px 5px !important;
-}
-</style>

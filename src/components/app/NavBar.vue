@@ -1,17 +1,34 @@
 <template>
-  <v-navigation-drawer v-model="drawer" app clipped color="white">
+  <v-navigation-drawer
+    v-model="drawer"
+    app
+    clipped
+    :class="
+      $vuetify.theme.isDark === false
+        ? 'background_white'
+        : 'background_default_dark_0'
+    "
+  >
     <v-list dense class="pt-0 pr-3">
       <template v-for="(item, i) in items">
         <v-hover v-slot:default="{ hover }" :key="i">
           <router-link :to="item.link" style="text-decoration: none">
-            <v-list-item :key="i" link class="rounded-r-xl">
+            <v-list-item
+              :key="i"
+              link
+              class="rounded-r-xl"
+              @click="listItemClicked"
+              ref="listItem"
+            >
               <v-list-item-action style="z-index: 20" class="my-2 mr-7">
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-item-action>
               <v-expand-transition>
                 <v-overlay
                   absolute
-                  color="grey lighten-2"
+                  :color="
+                    $vuetify.theme.isDark === false ? 'grey lighten-2' : ''
+                  "
                   class="rounded-r-xl"
                   :opacity="0.6"
                   :value="hover"
@@ -19,7 +36,7 @@
                 </v-overlay>
               </v-expand-transition>
               <v-list-item-content style="z-index: 20">
-                <v-list-item-title class="black--text">
+                <v-list-item-title>
                   {{ $t(`menu.${item.text}`) }}
                 </v-list-item-title>
               </v-list-item-content>
@@ -52,6 +69,24 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 })
 export default class NavBar extends Vue {
   @Prop(Boolean) public drawer!: boolean;
+
+  listItemClicked() {
+    console.log("aaaa");
+
+    this.$forceUpdate();
+    console.log("this.$el", this.$el.children[0].children[0].children);
+    this.$nextTick(function () {
+      [...this.$el.children[0].children[0].children].forEach((item, index) => {
+        if (
+          JSON.stringify([...item.classList]) ===
+          JSON.stringify(["router-link-exact-active", "router-link-active"])
+        ) {
+          console.log(index);
+        }
+        console.log("item", [...item.classList]);
+      });
+    });
+  }
 }
 </script>
 

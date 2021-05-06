@@ -1,5 +1,4 @@
 {
-  "app": "App",
   "menu": {
     "notes": "notes",
     "reminder": "reminder",
@@ -10,5 +9,6 @@
     "calendar": "calendar",
     "archive": "archive",
     "basket": "basket"
-  }
+  },
+  "search": "Search"
 }

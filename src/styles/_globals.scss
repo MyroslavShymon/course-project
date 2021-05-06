@@ -28,3 +28,13 @@
     opacity: 0 !important;
   }
 }
+.theme--dark {
+  .v-list-item__title {
+    color: $primary_dark_text;
+  }
+  .router-link-exact-active.router-link-active {
+    .v-list-item__title {
+      color: $default_lighten_1;
+    }
+  }
+}
