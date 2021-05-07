@@ -23,5 +23,11 @@ import MainLayout from "@/components/layouts/MainLayout.vue";
     MainLayout,
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  created() {
+    localStorage.themeColor == "false"
+      ? (this.$vuetify.theme.dark = false)
+      : (this.$vuetify.theme.dark = true);
+  }
+}
 </script>

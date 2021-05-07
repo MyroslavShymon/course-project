@@ -10,13 +10,13 @@ Vue.use(Vuetify);
 
 export default new Vuetify({
   theme: {
-    dark: true,
+    dark: Boolean(localStorage.themeColor),
     default: "light",
     themes: {
       light: {
         primary: "#a279ff",
         secondary: "#ffe969",
-        accent: "#4E27A6",
+        accent: "#3B0453",
         error: "#A6226D",
         info: "#D96FFF",
         success: "#22A622",
@@ -31,7 +31,7 @@ export default new Vuetify({
       dark: {
         primary: "#a279ff",
         secondary: "#ffe969",
-        accent: "#3B0453",
+        accent: "#4E27A6",
         error: "#FF5252",
         info: "#00322D",
         success: "#140C56",

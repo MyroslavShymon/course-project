@@ -1,4 +1,13 @@
 {
+  "search": "Search",
+  "display": "Display",
+  "accessibility": "Accessibility",
+  "and1": "and",
+  "and2": "&",
+  "theme": "theme",
+  "light": "Light",
+  "dark": "Dark",
+  "save": "save",
   "menu": {
     "notes": "notes",
     "reminder": "reminder",
@@ -10,5 +19,14 @@
     "archive": "archive",
     "basket": "basket"
   },
-  "search": "Search"
+  "profileMenuList": {
+    "your_notes": "Your Notes",
+    "your_reminds": "Your Notes",
+    "your_documents": "Your Documents",
+    "your_plans": "Your Plans",
+    "setings": "Setings",
+    "display_&_accessibilty": "Display & Accessibility",
+    "help_&_support": "Help & support",
+    "log_out": "Log out"
+  }
 }

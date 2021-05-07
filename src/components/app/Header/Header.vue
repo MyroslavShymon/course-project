@@ -8,9 +8,16 @@
         : 'background_default_dark_0'
     "
   >
-    <v-col cols="4" md="2" class="pa-0 d-flex align-center">
+    <v-col
+      cols="4"
+      md="2"
+      class="pa-0 d-flex align-center justify-space-between"
+    >
       <v-app-bar-nav-icon @click="mutablePropDrawer"></v-app-bar-nav-icon>
-      <span class="organizer mx-3 primary--text d-flex">Organizer++</span>
+      <div class="d-flex align-center">
+        <Logo />
+        <span class="organizer mx-1 primary--text d-flex">Organizer++</span>
+      </div>
     </v-col>
     <Search />
     <ProfileMenu />
@@ -20,12 +27,13 @@
 <script lang="ts">
 import { Component, Vue, Emit } from "vue-property-decorator";
 
-import ProfileMenu from "./ProfileMenu.vue";
+import ProfileMenu from "./ProfileMenu/ProfileMenu.vue";
 import Search from "./Search.vue";
+import Logo from "@/components/app/Logo.vue";
 
 @Component({
   name: "Header",
-  components: { ProfileMenu, Search },
+  components: { ProfileMenu, Search, Logo },
 })
 export default class Header extends Vue {
   public mutableDrawer = true;

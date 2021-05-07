@@ -4,19 +4,10 @@
   font-weight: 700;
   line-height: 2rem;
   letter-spacing: 0.0125em !important;
-  &::before {
-    content: "";
-    background-image: url("~@/assets/logo.svg");
-    display: inline-block;
-    width: 27px;
-    height: 27px;
-    margin-right: 5px;
-  }
 }
 
 .router-link-exact-active.router-link-active {
   .v-list-item {
-    background-color: $primary_light;
     &__action .v-icon {
       color: $default_lighten_1;
     }

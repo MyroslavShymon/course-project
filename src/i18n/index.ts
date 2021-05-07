@@ -8,4 +8,4 @@ export const messages = {
   [Locales.UA]: ua,
 };
 
-export const defaultLocale = Locales.EN;
+export const defaultLocale = Locales.UA;

@@ -1,6 +1,15 @@
 {
+  "search": "Пошук",
+  "display": "Відображення",
+  "accessibility": "Доступність",
+  "and1": "і",
+  "and2": "та",
+  "theme": "тема",
+  "light": "Світла",
+  "dark": "Темна",
+  "save": "зберегти",
   "menu": {
-    "notes": "замітки",
+    "notes": "примітки",
     "reminder": "нагадування",
     "documents": "документи",
     "plans": "плани",
@@ -10,5 +19,14 @@
     "archive": "архів",
     "basket": "корзина"
   },
-  "search": "Пошук"
+  "profileMenuList": {
+    "your_notes": "Ваші примітки",
+    "your_reminds": "Ваші нагадування",
+    "your_documents": "Ваші документи",
+    "your_plans": "Ваші плани",
+    "setings": "Налаштування",
+    "display_&_accessibilty": "Відображення та доступність",
+    "help_&_support": "Допомога та підтримка",
+    "log_out": "Вихід"
+  }
 }

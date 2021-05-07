@@ -12,34 +12,46 @@
     <v-list dense class="pt-0 pr-3">
       <template v-for="(item, i) in items">
         <v-hover v-slot:default="{ hover }" :key="i">
-          <router-link :to="item.link" style="text-decoration: none">
+          <router-link
+            :to="item.link"
+            style="text-decoration: none"
+            v-slot="{ href, navigate, isActive, isExactActive }"
+          >
             <v-list-item
-              :key="i"
-              link
-              class="rounded-r-xl"
-              @click="listItemClicked"
-              ref="listItem"
+              :class="[
+                isActive && 'router-link-active',
+                isExactActive && 'router-link-exact-active primary',
+              ]"
+              class="rounded-r-xl pa-0"
             >
-              <v-list-item-action style="z-index: 20" class="my-2 mr-7">
-                <v-icon>{{ item.icon }}</v-icon>
-              </v-list-item-action>
-              <v-expand-transition>
-                <v-overlay
-                  absolute
-                  :color="
-                    $vuetify.theme.isDark === false ? 'grey lighten-2' : ''
-                  "
-                  class="rounded-r-xl"
-                  :opacity="0.6"
-                  :value="hover"
-                >
-                </v-overlay>
-              </v-expand-transition>
-              <v-list-item-content style="z-index: 20">
-                <v-list-item-title>
-                  {{ $t(`menu.${item.text}`) }}
-                </v-list-item-title>
-              </v-list-item-content>
+              <v-list-item
+                :href="href"
+                @click="navigate"
+                class="rounded-r-xl pa-0"
+              >
+                <v-list-item :key="i" link class="rounded-r-xl">
+                  <v-list-item-action style="z-index: 20" class="my-2 mr-7">
+                    <v-icon>{{ item.icon }}</v-icon>
+                  </v-list-item-action>
+                  <v-expand-transition>
+                    <v-overlay
+                      absolute
+                      :color="
+                        $vuetify.theme.isDark === false ? 'grey lighten-2' : ''
+                      "
+                      class="rounded-r-xl"
+                      :opacity="0.6"
+                      :value="hover"
+                    >
+                    </v-overlay>
+                  </v-expand-transition>
+                  <v-list-item-content style="z-index: 20">
+                    <v-list-item-title>
+                      {{ $t(`menu.${item.text}`) }}
+                    </v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list-item>
             </v-list-item>
           </router-link>
         </v-hover>
@@ -69,24 +81,6 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 })
 export default class NavBar extends Vue {
   @Prop(Boolean) public drawer!: boolean;
-
-  listItemClicked() {
-    console.log("aaaa");
-
-    this.$forceUpdate();
-    console.log("this.$el", this.$el.children[0].children[0].children);
-    this.$nextTick(function () {
-      [...this.$el.children[0].children[0].children].forEach((item, index) => {
-        if (
-          JSON.stringify([...item.classList]) ===
-          JSON.stringify(["router-link-exact-active", "router-link-active"])
-        ) {
-          console.log(index);
-        }
-        console.log("item", [...item.classList]);
-      });
-    });
-  }
 }
 </script>
 
