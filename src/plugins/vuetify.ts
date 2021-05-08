@@ -29,7 +29,6 @@ export default new Vuetify({
         default_2: "#b8b8b8",
         default_3: "#cecece",
         default_4: "#e0e0e0",
-        default_5: "#f3f3f3",
       },
       dark: {
         primary: "#a279ff",

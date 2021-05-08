@@ -4,7 +4,7 @@
       <v-menu offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon x-small v-bind="attrs" v-on="on">
-            <v-icon>mdi-plus</v-icon>
+            <v-icon class="text--primary">mdi-plus</v-icon>
           </v-btn>
         </template>
         <v-list>
@@ -32,7 +32,10 @@
         <!-- {{ $t(`profileMenuList.${item.text}`) }} -->
       </v-menu>
     </div>
-    <v-icon size="7" style="transform: rotate(180deg)" class="mt-1 pr-1"
+    <v-icon
+      size="7"
+      style="transform: rotate(180deg)"
+      class="mt-1 pr-1 text--primary"
       >mdi-triangle
     </v-icon>
   </div>
