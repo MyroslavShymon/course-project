@@ -9,7 +9,7 @@
 .router-link-exact-active.router-link-active {
   .v-list-item {
     &__action .v-icon {
-      color: $default_lighten_1;
+      color: $default_0-base;
     }
     &__title {
       font-weight: 500 !important;
@@ -21,11 +21,18 @@
 }
 .theme--dark {
   .v-list-item__title {
-    color: $primary_dark_text;
+    color: $default_9-base;
   }
   .router-link-exact-active.router-link-active {
     .v-list-item__title {
-      color: $default_lighten_1;
+      color: $default_0-base;
     }
+  }
+}
+.v-toolbar__end-wrapper {
+  .v-badge__badge.primary {
+    padding: 0;
+    background: none !important;
+    color: $primary !important;
   }
 }

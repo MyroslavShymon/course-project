@@ -6,8 +6,8 @@
         v-else-if="item.link"
         :key="i"
         :to="item.linkTo"
-        style="color: white; text-decoration: none; width: 100%"
-        class="d-flex justify-start"
+        style="text-decoration: none; width: 100%"
+        class="d-flex justify-start text--primary"
       >
         <v-btn
           depressed

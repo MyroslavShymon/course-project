@@ -1,18 +1,22 @@
-$primary_light: #a279ff;
-$secondary_light: #ffe969;
-$accent_light: #4e27a6;
-$error_light: #a6226d;
-$info_light: #d96fff;
-$success_light: #22a622;
-$warning_light: #ff6400;
+$primary: var(--v-primary-base);
+$secondary: var(--v-secondary-base);
+$accent: var(--v-accent-base);
+$error: var(--v-error-base);
+$info: var(--v-info-base);
+$success: var(--v-success-base);
+$warning: var(--v-warning-base);
 
-/*$primary_dark: #0d6700;
-$secondary_dark: #790009;*/
-$accent_dark: #3b0453;
-$error_dark: #ff5252;
-$info_dark: #00322d;
-$success_dark: #140c56;
-$warning_dark: #7d2e00;
+$default_0-base: var(--v-default_0-base);
+$default_1-base: var(--v-default_1-lighten2);
+$default_2-base: var(--v-default_1-lighten3);
+$default_3-base: var(--v-default_1-lighten4);
+$default_4-base: var(--v-default_1-lighten5);
+$default_5-base: var(--v-default_2-lighten5);
+$default_6-base: var(--v-default_3-lighten5);
+$default_7-base: var(--v-default_4-lighten4);
+$default_8-base: var(--v-default_4-lighten5);
+$default_9-base: var(--v-default_5-lighten4);
+$default_10-base: var(--v-default_5-lighten5);
 
 $black: #000000;
 $default_lighten_0: #0a0a0a;

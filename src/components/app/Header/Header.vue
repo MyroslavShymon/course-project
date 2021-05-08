@@ -20,7 +20,12 @@
       </div>
     </v-col>
     <Search />
-    <ProfileMenu />
+    <v-spacer></v-spacer>
+    <div class="d-flex justify-end v-toolbar__end-wrapper">
+      <Add />
+      <Notification />
+      <ProfileMenu />
+    </div>
   </v-app-bar>
 </template>
 
@@ -29,11 +34,13 @@ import { Component, Vue, Emit } from "vue-property-decorator";
 
 import ProfileMenu from "./ProfileMenu/ProfileMenu.vue";
 import Search from "./Search.vue";
+import Notification from "./Notification.vue";
+import Add from "./Add.vue";
 import Logo from "@/components/app/Logo.vue";
 
 @Component({
   name: "Header",
-  components: { ProfileMenu, Search, Logo },
+  components: { ProfileMenu, Search, Logo, Notification, Add },
 })
 export default class Header extends Vue {
   public mutableDrawer = true;

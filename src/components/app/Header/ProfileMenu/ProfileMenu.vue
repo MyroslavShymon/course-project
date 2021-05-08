@@ -9,9 +9,9 @@
         style="display: inline-block !important"
       >
         <template v-slot:activator="{ on }">
-          <v-btn icon x-large v-on="on">
-            <v-avatar :color="randomedColor" size="48">
-              <span class="white--text headline"> DS</span>
+          <v-btn icon v-on="on" style="height: 40px; width: 40px">
+            <v-avatar :color="randomedColor" size="30">
+              <span class="white--text headline body-2"> DS</span>
             </v-avatar>
           </v-btn>
         </template>

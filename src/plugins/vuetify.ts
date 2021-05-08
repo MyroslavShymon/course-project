@@ -12,6 +12,9 @@ export default new Vuetify({
   theme: {
     dark: Boolean(localStorage.themeColor),
     default: "light",
+    options: {
+      customProperties: true,
+    },
     themes: {
       light: {
         primary: "#a279ff",
