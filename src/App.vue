@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Keypress v-if="true" key-event="keyup" @success="someMethod" />
     <component :is="layout">
       <router-view />
     </component>
@@ -21,6 +22,39 @@ import MainLayout from "@/components/layouts/MainLayout.vue";
   components: {
     EmptyLayout,
     MainLayout,
+    Keypress: () => import("vue-keypress"),
+  },
+  methods: {
+    someMethod(response) {
+      if (
+        response.event.key === "Y" &&
+        response.event.shiftKey == true &&
+        response.event.altKey == true
+      ) {
+        console.log("Create task", response);
+      }
+      if (
+        response.event.key === "U" &&
+        response.event.shiftKey == true &&
+        response.event.altKey == true
+      ) {
+        console.log("Create reminder");
+      }
+      if (
+        response.event.key === "I" &&
+        response.event.shiftKey == true &&
+        response.event.altKey == true
+      ) {
+        console.log("Create documents");
+      }
+      if (
+        response.event.key === "O" &&
+        response.event.shiftKey == true &&
+        response.event.altKey == true
+      ) {
+        console.log("Create plans");
+      }
+    },
   },
 })
 export default class App extends Vue {

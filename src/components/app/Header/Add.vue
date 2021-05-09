@@ -3,9 +3,16 @@
     <div class="align-center d-flex">
       <v-menu offset-y>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn icon x-small v-bind="attrs" v-on="on">
+          <v-btn icon x-small v-bind="attrs" v-on="on" class="mr-1">
             <v-icon class="text--primary">mdi-plus</v-icon>
           </v-btn>
+          <v-icon
+            v-on="on"
+            size="7"
+            style="transform: rotate(180deg)"
+            class="mt-1 text--primary"
+            >mdi-triangle
+          </v-icon>
         </template>
         <v-list>
           <v-list-item
@@ -24,20 +31,15 @@
             >
               <v-list-item-title
                 class="caption font-weight-bold d-flex text--primary"
-                >{{ item.text }}</v-list-item-title
+                >{{
+                  $t("add") + " " + $t(`menu.${item.text}`)
+                }}</v-list-item-title
               >
             </v-btn>
           </v-list-item>
         </v-list>
-        <!-- {{ $t(`profileMenuList.${item.text}`) }} -->
       </v-menu>
     </div>
-    <v-icon
-      size="7"
-      style="transform: rotate(180deg)"
-      class="mt-1 pr-1 text--primary"
-      >mdi-triangle
-    </v-icon>
   </div>
 </template>
 
@@ -49,10 +51,10 @@ import { Component, Vue } from "vue-property-decorator";
   data() {
     return {
       items: [
-        { text: "Add notes" },
-        { text: "Add reminds" },
-        { text: "Add documents" },
-        { text: "Add plans" },
+        { text: "notes" },
+        { text: "reminder" },
+        { text: "documents" },
+        { text: "plans" },
       ],
     };
   },

@@ -75,8 +75,9 @@
                     ></v-radio>
                   </v-radio-group>
                 </v-col>
-                <v-col cols="12" sm="6" md="4">
+                <v-col cols="12" sm="6" md="8">
                   <div>{{ $t("accessibility") }}</div>
+                  <Combinations />
                 </v-col>
               </v-row>
             </v-container>
@@ -96,8 +97,11 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
+import Combinations from "./Combinations.vue";
+
 @Component({
   name: "ProfileMenuList",
+  components: { Combinations },
   data() {
     return {
       dialog: false,
