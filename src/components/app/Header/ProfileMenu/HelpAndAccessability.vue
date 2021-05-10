@@ -24,8 +24,7 @@
             style="text-decoration: none"
           >
             <v-icon small>mdi-help-circle</v-icon>
-            <!-- Довідковий центр -->
-            <div class="ml-2 caption">Help center</div>
+            <div class="ml-2 caption">{{ $t("Help center") }}</div>
           </v-btn>
           <v-dialog v-model="dialog" max-width="600px" :retain-focus="false">
             <template v-slot:activator="{ on, attrs }">
@@ -41,13 +40,12 @@
                 fill
               >
                 <v-icon small>mdi-message-alert</v-icon>
-                <!-- Повідомити про проблему -->
-                <div class="ml-2 caption">Report a problem</div>
+                <div class="ml-2 caption">{{ $t("Report a problem") }}</div>
               </v-btn>
             </template>
             <v-card>
               <v-card-title>
-                <span class="headline">Report a problem</span>
+                <span class="headline">{{ $t("Report a problem") }}</span>
                 <v-spacer></v-spacer>
                 <v-card-actions>
                   <v-btn small fab text @click="dialog = false">
@@ -55,45 +53,52 @@
                   </v-btn>
                 </v-card-actions>
               </v-card-title>
-              <v-card-text>
-                <v-container class="px-0">
-                  <v-row>
-                    <v-col cols="12" sm="6" md="11">
-                      <v-combobox
-                        clearable
-                        dense
-                        multiple
-                        outlined
-                        persistent-hint
-                        :items="items"
-                        v-model="chosedItems"
-                        :rules="rulesComboInput"
-                        required
-                        ref="chosedItems"
-                      ></v-combobox>
-                      <v-textarea
-                        name="input-7-1"
-                        label="Enter the explanation here"
-                        hint="Enter your concerns, tips, or questions in this field"
-                        clearable
-                        :rules="rulesTextInput"
-                        v-model.trim="text"
-                        required
-                      ></v-textarea>
-                      <v-alert type="error" v-if="error" class="mt-5">
-                        Fields are required!!!
-                      </v-alert>
-                      <v-alert type="success" v-if="success" class="mt-5">
-                        Succes!!!
-                      </v-alert>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </v-card-text>
-              <v-card-actions class="px-6">
-                <v-spacer></v-spacer>
-                <v-btn color="accent" text @click="sendProblem"> Send </v-btn>
-              </v-card-actions>
+              <form action="post" @submit.prevent="sendProblem">
+                <v-card-text>
+                  <v-container class="px-0">
+                    <v-row>
+                      <v-col cols="12" sm="6" md="11">
+                        <v-combobox
+                          clearable
+                          dense
+                          multiple
+                          outlined
+                          persistent-hint
+                          :items="items"
+                          v-model="chosedItems"
+                          :rules="rulesComboInput"
+                          ref="chosedItems"
+                        ></v-combobox>
+                        <v-textarea
+                          name="input-7-1"
+                          :label="$t('Enter the explanation here')"
+                          :hint="
+                            $t(
+                              'Enter your concerns, tips, or questions in this field'
+                            )
+                          "
+                          clearable
+                          :rules="rulesTextInput"
+                          v-model.trim="text"
+                          required
+                        ></v-textarea>
+                        <v-alert type="success" v-if="success" class="mt-5">
+                          {{ $t("Succes") }}!!!
+                        </v-alert>
+                        <v-alert type="error" v-if="error" class="mt-5">
+                          {{ $t("Inputs are required") }}
+                        </v-alert>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-card-text>
+                <v-card-actions class="px-6">
+                  <v-spacer></v-spacer>
+                  <v-btn color="accent" text type="submit">
+                    {{ $t("Send") }}
+                  </v-btn>
+                </v-card-actions>
+              </form>
             </v-card>
           </v-dialog>
         </div>
@@ -119,11 +124,11 @@ import { required, minLength } from "vuelidate/lib/validators";
   data() {
     return {
       dialog: false,
-      items: ["Concerns", "Tips", "Questions"],
+      items: [this.$t("Concerns"), this.$t("Tips"), this.$t("Questions")],
       chosedItems: [],
       text: "",
-      error: false,
       success: false,
+      error: false,
     };
   },
 })
@@ -136,9 +141,11 @@ export default class ProfileMenuData extends Vue {
   > {
     return [
       (this.$v.text.$dirty && this.$v.text.minLength) ||
-        `Min ${this.$v.text.$params.minLength.min} characters`,
+        `${this.$t("The minimum number of characters is")} ${
+          this.$v.text.$params.minLength.min
+        } ${this.$t("you scored")} ${this.$v.text.$model.length}`,
       (this.$v.text.$dirty && this.$v.text.required) ||
-        "This field is required.",
+        `${this.$t("This field is required")}.`,
     ];
   }
   private get rulesComboInput(): Array<
@@ -146,7 +153,7 @@ export default class ProfileMenuData extends Vue {
   > {
     return [
       (this.$v.chosedItems.$dirty && this.$v.chosedItems.required) ||
-        "This field is required.",
+        `${this.$t("This field is required")}.`,
     ];
   }
 
@@ -155,18 +162,15 @@ export default class ProfileMenuData extends Vue {
   private sendProblem() {
     this.$v.$touch();
     if (!this.$v.$invalid) {
-      this.$data.error = false;
       this.$data.success = true;
+      this.$data.error = false;
       console.log("sendProblem", this.chosedItems, this.text, this.$v);
       this.chosedItems = [];
       this.text = "";
       return;
     }
-    // this.rulesTextInput;
     if (this.$v.$invalid) {
-      console.log(this.$v);
       this.$data.error = true;
-      console.log("feiled");
     }
   }
   created() {
@@ -178,9 +182,11 @@ export default class ProfileMenuData extends Vue {
 <style lang="scss" scoped>
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: opacity 1s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+.fade-enter,
+.fade-leave-to {
+  transition: opacity 1s;
   opacity: 0;
 }
 </style>

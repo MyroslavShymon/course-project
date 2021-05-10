@@ -22,6 +22,20 @@
           {{ $t(`profileMenuList.${item.text}`) }}
         </v-btn>
       </router-link>
+      <v-btn
+        v-else-if="item.exit"
+        :key="i"
+        depressed
+        small
+        tile
+        style="width: 100%"
+        class="justify-start px-2"
+        color="default_0"
+      >
+        <v-icon small class="pr-2">{{ item.icon }}</v-icon>
+
+        {{ $t(`profileMenuList.${item.text}`) }}
+      </v-btn>
       <div
         v-else-if="item.hover"
         :key="i"
@@ -153,7 +167,7 @@ import HelpAndAccessability from "./HelpAndAccessability.vue";
           hover: true,
           icon: "mdi-help-circle-outline",
         },
-        { text: "log_out", type: "button", icon: "mdi-exit-to-app" },
+        { text: "log_out", icon: "mdi-exit-to-app", exit: "true" },
       ],
     };
   },
