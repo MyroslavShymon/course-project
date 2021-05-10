@@ -1,11 +1,10 @@
 <template>
   <div>
-    <table>
+    <table style="width: 100%">
       <thead>
         <tr>
           <th class="text-start">Create something</th>
           <th>2</th>
-          <th>3</th>
         </tr>
       </thead>
       <tbody>

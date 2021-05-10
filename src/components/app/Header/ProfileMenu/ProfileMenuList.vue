@@ -22,6 +22,14 @@
           {{ $t(`profileMenuList.${item.text}`) }}
         </v-btn>
       </router-link>
+      <div
+        v-else-if="item.hover"
+        :key="i"
+        @mouseover="upHere = true"
+        @mouseleave="upHere = false"
+      >
+        <HelpAndAccessability :item="item" :upHere="upHere" />
+      </div>
 
       <v-dialog
         v-else
@@ -58,10 +66,10 @@
             </v-card-actions>
           </v-card-title>
           <v-card-text>
-            <v-container>
+            <v-container class="px-0">
               <v-row>
                 <v-col cols="12" sm="6" md="4">
-                  <div>{{ $t("display") }}</div>
+                  <div class="title">{{ $t("display") }}</div>
                   <v-radio-group v-model="radioGroup">
                     <v-radio
                       :label="$t('light') + ' ' + $t('theme')"
@@ -76,7 +84,11 @@
                   </v-radio-group>
                 </v-col>
                 <v-col cols="12" sm="6" md="8">
-                  <div>{{ $t("accessibility") }}</div>
+                  <div class="title">{{ $t("accessibility") }}</div>
+                  <span class="font-italic">
+                    If you do not want to use the mouse,<br />
+                    you can press the keys. So even faster!
+                  </span>
                   <Combinations />
                 </v-col>
               </v-row>
@@ -98,14 +110,16 @@
 import { Component, Vue } from "vue-property-decorator";
 
 import Combinations from "./Combinations.vue";
+import HelpAndAccessability from "./HelpAndAccessability.vue";
 
 @Component({
   name: "ProfileMenuList",
-  components: { Combinations },
+  components: { Combinations, HelpAndAccessability },
   data() {
     return {
       dialog: false,
       radioGroup: "dark",
+      upHere: false,
       items: [
         { divider: true },
         { text: "your_notes", link: true, linkTo: "/", icon: "task" },
@@ -136,8 +150,7 @@ import Combinations from "./Combinations.vue";
         },
         {
           text: "help_&_support",
-          link: true,
-          linkTo: "/",
+          hover: true,
           icon: "mdi-help-circle-outline",
         },
         { text: "log_out", type: "button", icon: "mdi-exit-to-app" },
@@ -173,3 +186,12 @@ import Combinations from "./Combinations.vue";
 })
 export default class ProfileMenuList extends Vue {}
 </script>
+
+<style>
+.left-1241 {
+  left: 1241px !important;
+}
+.left-1141 {
+  left: 1141px !important;
+}
+</style>

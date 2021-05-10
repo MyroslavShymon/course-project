@@ -27,28 +27,28 @@ import MainLayout from "@/components/layouts/MainLayout.vue";
   methods: {
     someMethod(response) {
       if (
-        response.event.key === "Y" &&
+        response.event.code === "KeyY" &&
         response.event.shiftKey == true &&
         response.event.altKey == true
       ) {
         console.log("Create task", response);
       }
       if (
-        response.event.key === "U" &&
+        response.event.code === "KeyU" &&
         response.event.shiftKey == true &&
         response.event.altKey == true
       ) {
         console.log("Create reminder");
       }
       if (
-        response.event.key === "I" &&
+        response.event.code === "KeyI" &&
         response.event.shiftKey == true &&
         response.event.altKey == true
       ) {
         console.log("Create documents");
       }
       if (
-        response.event.key === "O" &&
+        response.event.code === "KeyO" &&
         response.event.shiftKey == true &&
         response.event.altKey == true
       ) {

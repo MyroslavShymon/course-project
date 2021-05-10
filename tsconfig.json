@@ -10,6 +10,8 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "strictFunctionTypes": false,
     "resolveJsonModule": true,
     "sourceMap": true,
     "baseUrl": ".",
