@@ -59,6 +59,18 @@ import MainLayout from "@/components/layouts/MainLayout.vue";
 })
 export default class App extends Vue {
   created() {
+    if (!localStorage.palette) {
+      const themes = this.$vuetify.theme.themes;
+      localStorage.palette = JSON.stringify({ themes });
+      return;
+    }
+    this.$vuetify.theme.themes.dark = JSON.parse(
+      localStorage.palette
+    ).themes.dark;
+    this.$vuetify.theme.themes.light = JSON.parse(
+      localStorage.palette
+    ).themes.light;
+
     localStorage.themeColor == "false"
       ? (this.$vuetify.theme.dark = false)
       : (this.$vuetify.theme.dark = true);

@@ -1,16 +1,31 @@
 <template>
-  <router-view></router-view>
+  <v-app>
+    <Header :burger="false" />
+    <v-main>
+      <v-container
+        fluid
+        class="fill-height justify-center align-start"
+        :class="
+          $vuetify.theme.isDark === false
+            ? 'background_white'
+            : 'background_default_dark_1'
+        "
+      >
+        <router-view class="app-content" />
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import Vue from "vue";
 
-import Footer from "@/components/app/Footer.vue";
+import Header from "@/components/app/Header/Header.vue";
 
-@Component({
+export default Vue.extend({
+  name: "App",
   components: {
-    Footer,
+    Header,
   },
-})
-export default class EmptyLayout extends Vue {}
+});
 </script>

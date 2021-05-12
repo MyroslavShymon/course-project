@@ -59,6 +59,30 @@ const routes: Array<RouteConfig> = [
     meta: { layout: "main" },
     component: () => import("../views/Basket.vue"),
   },
+  {
+    path: "/settings",
+    name: "Settings",
+    meta: { layout: "empty" },
+    component: () => import("../views/Settings.vue"),
+  },
+  {
+    path: "/help_center",
+    name: "HelpCenter",
+    meta: { layout: "empty" },
+    component: () => import("../views/HelpCenter.vue"),
+  },
+  {
+    path: "/login",
+    name: "Login",
+    meta: { layout: "empty" },
+    component: () => import("../views/Login.vue"),
+  },
+  {
+    path: "/register",
+    name: "Register",
+    meta: { layout: "empty" },
+    component: () => import("../views/Register.vue"),
+  },
 ];
 
 const router = new VueRouter({

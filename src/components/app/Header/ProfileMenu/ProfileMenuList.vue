@@ -156,7 +156,7 @@ import HelpAndAccessability from "./HelpAndAccessability.vue";
           icon: "mdi-notebook",
         },
         { divider: true },
-        { text: "setings", link: true, linkTo: "/", icon: "mdi-cog" },
+        { text: "setings", link: true, linkTo: "/settings", icon: "mdi-cog" },
         {
           text: "display_&_accessibilty",
           dialog: true,

@@ -13,7 +13,10 @@
       md="2"
       class="pa-0 d-flex align-center justify-space-between"
     >
-      <v-app-bar-nav-icon @click="mutablePropDrawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon
+        @click="mutablePropDrawer"
+        v-show="burger"
+      ></v-app-bar-nav-icon>
       <div class="d-flex align-center">
         <Logo />
         <span class="organizer mx-1 primary--text d-flex">Organizer++</span>
@@ -30,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Emit } from "vue-property-decorator";
+import { Component, Vue, Emit, Prop } from "vue-property-decorator";
 
 import ProfileMenu from "./ProfileMenu/ProfileMenu.vue";
 import Search from "./Search.vue";
@@ -43,6 +46,7 @@ import Logo from "@/components/app/Logo.vue";
   components: { ProfileMenu, Search, Logo, Notification, Add },
 })
 export default class Header extends Vue {
+  @Prop(Boolean) public burger!: boolean;
   public mutableDrawer = true;
   @Emit()
   mutablePropDrawer(): boolean {

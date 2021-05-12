@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Header v-on:mutable-prop-drawer="burgerClicked" />
+    <Header v-on:mutable-prop-drawer="burgerClicked" :burger="true" />
     <NavBar :drawer="drawer" />
     <v-main>
       <v-container

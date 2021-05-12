@@ -1,31 +1,43 @@
 <template>
   <div>
-    <v-btn
-      depressed
-      small
-      tile
+    <router-link
+      to="help_center"
       style="text-decoration: none; width: 100%"
-      class="d-flex justify-start text--primary px-2"
-      color="default_0"
+      class="d-flex justify-start text--primary"
     >
-      <v-icon small class="pr-2">{{ item.icon }}</v-icon>
-      {{ $t(`profileMenuList.${item.text}`) }}
-    </v-btn>
+      <v-btn
+        depressed
+        small
+        tile
+        style="text-decoration: none; width: 100%"
+        class="d-flex justify-start text--primary px-2"
+        color="default_0"
+      >
+        <v-icon small class="pr-2">{{ item.icon }}</v-icon>
+        {{ $t(`profileMenuList.${item.text}`) }}
+      </v-btn>
+    </router-link>
 
     <transition name="fade">
       <div v-show="upHere">
         <div class="d-flex justify-space-between flex-wrap">
-          <v-btn
-            depressed
-            small
-            tile
-            color="transparent"
-            class="text--primary d-flex justify-start px-2 flex-grow-1"
-            style="text-decoration: none"
+          <router-link
+            to="help_center"
+            style="text-decoration: none; width: 100%"
+            class="d-flex justify-start text--primary"
           >
-            <v-icon small>mdi-help-circle</v-icon>
-            <div class="ml-2 caption">{{ $t("Help center") }}</div>
-          </v-btn>
+            <v-btn
+              depressed
+              small
+              tile
+              color="transparent"
+              class="text--primary d-flex justify-start px-2 flex-grow-1"
+              style="text-decoration: none"
+            >
+              <v-icon small>mdi-help-circle</v-icon>
+              <div class="ml-2 caption">{{ $t("Help center") }}</div>
+            </v-btn>
+          </router-link>
           <v-dialog v-model="dialog" max-width="600px" :retain-focus="false">
             <template v-slot:activator="{ on, attrs }">
               <v-btn
@@ -164,7 +176,6 @@ export default class ProfileMenuData extends Vue {
     if (!this.$v.$invalid) {
       this.$data.success = true;
       this.$data.error = false;
-      console.log("sendProblem", this.chosedItems, this.text, this.$v);
       this.chosedItems = [];
       this.text = "";
       return;
