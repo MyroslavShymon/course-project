@@ -3,13 +3,9 @@
     <Header :burger="false" />
     <v-main>
       <v-container
+        style="border-top: 1px solid rgba(0, 0, 0, 0.1) !important"
         fluid
-        class="fill-height justify-center align-start"
-        :class="
-          $vuetify.theme.isDark === false
-            ? 'background_white'
-            : 'background_default_dark_1'
-        "
+        class="fill-height justify-center align-start second_structure_color"
       >
         <router-view class="app-content" />
       </v-container>

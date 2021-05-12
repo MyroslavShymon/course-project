@@ -62,6 +62,7 @@ export default class App extends Vue {
     if (!localStorage.palette) {
       const themes = this.$vuetify.theme.themes;
       localStorage.palette = JSON.stringify({ themes });
+      localStorage.defaultPalette = JSON.stringify({ themes });
       return;
     }
     this.$vuetify.theme.themes.dark = JSON.parse(

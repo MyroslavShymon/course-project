@@ -6,7 +6,7 @@ $info: var(--v-info-base);
 $success: var(--v-success-base);
 $warning: var(--v-warning-base);
 
-$default_0-base: var(--v-default_0-base);
+$default_0-base: var(--v-default_4-darken2);
 $default_1-base: var(--v-default_1-lighten2);
 $default_2-base: var(--v-default_1-lighten3);
 $default_3-base: var(--v-default_1-lighten4);
@@ -30,7 +30,7 @@ $default_lighten_6: #b8b8b8;
 $default_lighten_7: #cecece;
 $default_lighten_8: #e0e0e0;
 $default_lighten_9: #f3f3f3;
-$white: #ffffff;
+$white: var(--v-default_4-lighten5);
 
 $default_dark_0: #1e1e1e;
 $default_dark_1: #363636;

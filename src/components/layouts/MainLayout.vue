@@ -5,12 +5,8 @@
     <v-main>
       <v-container
         fluid
-        class="fill-height"
-        :class="
-          $vuetify.theme.isDark === false
-            ? 'background_white'
-            : 'background_default_dark_1'
-        "
+        style="border-top: 1px solid rgba(0, 0, 0, 0.1) !important"
+        class="fill-height second_structure_color"
       >
         <router-view class="app-content" />
       </v-container>

@@ -27,7 +27,7 @@
               tile
               style="width: 100%"
               class="justify-start"
-              color="default_0"
+              color="first_structure_color"
             >
               <v-list-item-title
                 class="caption font-weight-bold d-flex text--primary"

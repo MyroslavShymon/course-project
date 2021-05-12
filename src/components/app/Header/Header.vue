@@ -1,13 +1,5 @@
 <template>
-  <v-app-bar
-    app
-    clipped-left
-    :class="
-      $vuetify.theme.isDark === false
-        ? 'background_white'
-        : 'background_default_dark_0'
-    "
-  >
+  <v-app-bar app clipped-left color="first_structure_color">
     <v-col
       cols="4"
       md="2"
@@ -59,6 +51,5 @@ export default class Header extends Vue {
 <style lang="scss" scoped>
 .v-app-bar {
   box-shadow: none !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
 }
 </style>

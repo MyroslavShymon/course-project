@@ -3,11 +3,7 @@
     v-model="drawer"
     app
     clipped
-    :class="
-      $vuetify.theme.isDark === false
-        ? 'background_white'
-        : 'background_default_dark_0'
-    "
+    color="second_structure_color"
   >
     <v-list dense class="pt-0 pr-3">
       <template v-for="(item, i) in items">

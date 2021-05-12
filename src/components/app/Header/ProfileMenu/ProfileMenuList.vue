@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="third_structure_color">
     <template v-for="(item, i) in items">
       <v-divider v-if="item.divider" :key="i" class="my-2 px-2"></v-divider>
       <router-link
@@ -15,7 +15,7 @@
           tile
           style="width: 100%"
           class="justify-start px-2"
-          color="default_0"
+          color="third_structure_color"
         >
           <v-icon small class="pr-2">{{ item.icon }}</v-icon>
 
@@ -30,7 +30,7 @@
         tile
         style="width: 100%"
         class="justify-start px-2"
-        color="default_0"
+        color="third_structure_color"
       >
         <v-icon small class="pr-2">{{ item.icon }}</v-icon>
 
@@ -59,7 +59,7 @@
             v-bind="attrs"
             v-on="on"
             tile
-            color="default_0"
+            color="third_structure_color"
             style="width: 100%"
             class="d-flex justify-start px-2"
           >

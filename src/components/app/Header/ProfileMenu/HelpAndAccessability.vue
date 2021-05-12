@@ -11,7 +11,7 @@
         tile
         style="text-decoration: none; width: 100%"
         class="d-flex justify-start text--primary px-2"
-        color="default_0"
+        color="third_structure_color"
       >
         <v-icon small class="pr-2">{{ item.icon }}</v-icon>
         {{ $t(`profileMenuList.${item.text}`) }}

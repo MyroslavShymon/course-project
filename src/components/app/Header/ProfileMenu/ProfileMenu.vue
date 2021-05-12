@@ -16,7 +16,7 @@
           </v-btn>
         </template>
         <v-card>
-          <v-list-item-content class="justify-center">
+          <v-list-item-content class="justify-center third_structure_color">
             <div class="mx-auto text-center">
               <ProfileMenuData :randomed-color="randomedColor" />
               <ProfileMenuList />

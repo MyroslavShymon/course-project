@@ -57,10 +57,76 @@
                 v-model="colorType"
                 required
               ></v-select>
-              <div class="d-flex">
-                <v-btn @click="changeColor" color="primary">Change color</v-btn>
-                <v-btn @click="saveTheme" color="primary ml-3"
+              <div class="themes d-flex justify-center">
+                <div class="theme">
+                  <v-tooltip
+                    bottom
+                    v-for="color of currentCollors"
+                    :key="color"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                        tile
+                        :color="color"
+                        class="theme-color"
+                        :class="'theme-color-' + `${color}`"
+                        v-bind="attrs"
+                        v-on="on"
+                        @click="getColor($event)"
+                      >
+                      </v-btn>
+                    </template>
+                    <span>{{ color }}</span>
+                  </v-tooltip>
+                </div>
+                <!-- <div class="theme ml-2">
+                  <v-tooltip
+                    bottom
+                    v-for="color of currentCollors"
+                    :key="color"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                        tile
+                        :color="color"
+                        class="theme-color"
+                        :class="'theme-color-' + `${color}`"
+                        v-bind="attrs"
+                        v-on="on"
+                      >
+                      </v-btn>
+                    </template>
+                    <span>{{ color }}</span>
+                  </v-tooltip>
+                </div> -->
+              </div>
+              <div class="d-flex justify-center">
+                <v-btn
+                  medium
+                  outlined
+                  tile
+                  @click="changeColor"
+                  color="primary"
+                  small
+                  >Change color</v-btn
+                >
+                <v-btn
+                  medium
+                  outlined
+                  tile
+                  @click="saveTheme"
+                  color="primary ml-3"
+                  small
                   >Save theme</v-btn
+                >
+                <v-btn
+                  medium
+                  outlined
+                  tile
+                  @click="setDefaultTheme"
+                  color="primary ml-3"
+                  small
+                  >Set default theme</v-btn
                 >
               </div>
             </v-card-text>
@@ -97,8 +163,25 @@ export default Vue.extend({
   data: () => ({
     color: "",
     colorType: "primary",
+    currentCollors: [
+      "primary",
+      "secondary",
+      "accent",
+      "error",
+      "info",
+      "success",
+      "warning",
+    ],
   }),
   methods: {
+    getColor(event: any) {
+      this.color = String(
+        this.$vuetify.theme.themes[this.$vuetify.theme.dark ? "dark" : "light"][
+          event.explicitOriginalTarget.__vue__.color
+        ]
+      );
+      this.colorType = event.explicitOriginalTarget.__vue__.color;
+    },
     saveTheme() {
       const themes = this.$vuetify.theme.themes;
       localStorage.palette = JSON.stringify({ themes });
@@ -108,13 +191,71 @@ export default Vue.extend({
       this.$vuetify.theme.themes[this.$vuetify.theme.dark ? "dark" : "light"][
         `${this.colorType}`
       ] = this.color.substring(0, 7);
-      this.$forceUpdate();
+      // this.$forceUpdate();
+    },
+    setDefaultTheme() {
+      this.$vuetify.theme.themes.dark = JSON.parse(
+        localStorage.defaultPalette
+      ).themes.dark;
+      this.$vuetify.theme.themes.light = JSON.parse(
+        localStorage.defaultPalette
+      ).themes.light;
     },
   },
 });
 </script>
 
 <style lang="scss">
+.themes {
+  height: 150px;
+  margin: 0 0 5px 0;
+}
+.theme {
+  display: grid;
+  grid-template-columns: 30% 30% 15% 15%;
+  grid-template-rows: 30% 30% 20%;
+  grid-gap: 5px;
+  width: 200px;
+  grid-template-areas:
+    "primary primary accent secondary"
+    "primary primary accent secondary"
+    "error info success warning";
+  height: 100%;
+  &-color {
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    &-primary {
+      grid-area: primary;
+      background-color: $primary;
+    }
+    &-secondary {
+      grid-area: secondary;
+      background-color: $secondary;
+    }
+    &-accent {
+      grid-area: accent;
+      background-color: $accent;
+    }
+    &-error {
+      grid-area: error;
+      background-color: $error;
+    }
+    &-info {
+      grid-area: info;
+      background-color: $info;
+    }
+    &-success {
+      grid-area: success;
+      background-color: $success;
+    }
+    &-warning {
+      grid-area: warning;
+      background-color: $warning;
+    }
+  }
+}
 .v-color-picker__swatches > div {
   justify-content: space-between !important;
   padding: 0 !important;
