@@ -57,50 +57,58 @@
                 v-model="colorType"
                 required
               ></v-select>
-              <div class="themes d-flex justify-center">
-                <div class="theme">
-                  <v-tooltip
-                    bottom
-                    v-for="color of currentCollors"
-                    :key="color"
-                  >
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn
-                        tile
-                        :color="color"
-                        class="theme-color"
-                        :class="'theme-color-' + `${color}`"
-                        v-bind="attrs"
-                        v-on="on"
-                        @click="getColor($event)"
+              <div class="d-flex flex-column">
+                <div class="themes d-flex">
+                  <div>
+                    <div>Current palette</div>
+                    <div class="theme">
+                      <v-tooltip
+                        bottom
+                        v-for="color of currentCollors"
+                        :key="color"
                       >
-                      </v-btn>
-                    </template>
-                    <span>{{ color }}</span>
-                  </v-tooltip>
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-btn
+                            tile
+                            :color="color"
+                            class="theme-color"
+                            :class="'theme-color-' + `${color}`"
+                            v-bind="attrs"
+                            v-on="on"
+                            @click="getColor($event)"
+                          >
+                          </v-btn>
+                        </template>
+                        <span>{{ color }}</span>
+                      </v-tooltip>
+                    </div>
+                  </div>
+                  <div>
+                    <div>Default palette</div>
+                    <div class="theme ml-2">
+                      <v-tooltip
+                        bottom
+                        v-for="color of defaultCollors"
+                        :key="color.color"
+                      >
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-btn
+                            tile
+                            :style="{ backgroundColor: color.color }"
+                            class="theme-color"
+                            :class="'theme-color-' + `${color.colorType}`"
+                            v-bind="attrs"
+                            v-on="on"
+                          >
+                          </v-btn>
+                        </template>
+                        <span>{{ color.colorType }}</span>
+                      </v-tooltip>
+                    </div>
+                  </div>
                 </div>
-                <!-- <div class="theme ml-2">
-                  <v-tooltip
-                    bottom
-                    v-for="color of currentCollors"
-                    :key="color"
-                  >
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn
-                        tile
-                        :color="color"
-                        class="theme-color"
-                        :class="'theme-color-' + `${color}`"
-                        v-bind="attrs"
-                        v-on="on"
-                      >
-                      </v-btn>
-                    </template>
-                    <span>{{ color }}</span>
-                  </v-tooltip>
-                </div> -->
               </div>
-              <div class="d-flex justify-center">
+              <div class="d-flex">
                 <v-btn
                   medium
                   outlined
@@ -171,8 +179,19 @@ export default Vue.extend({
       "info",
       "success",
       "warning",
-    ],
+    ] as string[],
+    defaultCollors: [] as { colorType: string; color: string }[],
   }),
+  created() {
+    for (let colorType in JSON.parse(localStorage.defaultPalette).themes.dark) {
+      let color: string = JSON.parse(localStorage.defaultPalette).themes.dark[
+        colorType
+      ].toLowerCase();
+      this.defaultCollors.push({ colorType, color });
+    }
+    console.log("aaaa", this.defaultCollors);
+  },
+
   methods: {
     getColor(event: any) {
       this.color = String(
@@ -207,8 +226,8 @@ export default Vue.extend({
 
 <style lang="scss">
 .themes {
-  height: 150px;
-  margin: 0 0 5px 0;
+  height: 130px;
+  margin: 0 0 10px 0;
 }
 .theme {
   display: grid;
@@ -253,6 +272,15 @@ export default Vue.extend({
     &-warning {
       grid-area: warning;
       background-color: $warning;
+    }
+    &-first_structure_color {
+      display: none;
+    }
+    &-second_structure_color {
+      display: none;
+    }
+    &-third_structure_color {
+      display: none;
     }
   }
 }
