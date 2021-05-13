@@ -73,18 +73,6 @@
           small
           >{{ button.text }}</v-btn
         >
-        <!-- <v-btn medium outlined tile @click="saveTheme" color="primary" small
-          >Save theme</v-btn
-        >
-        <v-btn
-          medium
-          outlined
-          tile
-          @click="setDefaultTheme"
-          color="primary"
-          small
-          >Set default theme</v-btn
-        > -->
       </div>
     </v-card-text>
   </v-card>
@@ -92,7 +80,6 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-
 @Component({
   name: "Theme",
   data: () => ({
@@ -122,44 +109,41 @@ import { Component, Vue } from "vue-property-decorator";
       this.$data.defaultCollors.push({ colorType, color });
     }
   },
-
-  methods: {
-    runButtonsMethods(method) {
-      this[method]();
-    },
-    // runButtonsMethods<T extends string>(method: T) {
-    //   this[method]();
-    // },
-    getColor(event: any) {
-      this.$data.color = String(
-        this.$vuetify.theme.themes[this.$vuetify.theme.dark ? "dark" : "light"][
-          event.explicitOriginalTarget.__vue__.color
-        ]
-      );
-      this.$data.colorType = event.explicitOriginalTarget.__vue__.color;
-    },
-    saveTheme() {
-      const themes = this.$vuetify.theme.themes;
-      localStorage.palette = JSON.stringify({ themes });
-    },
-    changeColor() {
-      //   this.$i18n.locale = "en";
-      this.$vuetify.theme.themes[this.$vuetify.theme.dark ? "dark" : "light"][
-        `${this.$data.colorType}`
-      ] = this.$data.color.substring(0, 7);
-      // this.$forceUpdate();
-    },
-    setDefaultTheme() {
-      this.$vuetify.theme.themes.dark = JSON.parse(
-        localStorage.defaultPalette
-      ).themes.dark;
-      this.$vuetify.theme.themes.light = JSON.parse(
-        localStorage.defaultPalette
-      ).themes.light;
-    },
-  },
 })
-export default class Theme extends Vue {}
+export default class Theme extends Vue {
+  runButtonsMethods(method: string): void {
+    this[method as keyof Theme]();
+  }
+  getColor(event: any): void {
+    /////////////////////////////fix any
+    console.log(event);
+
+    this.$data.color = String(
+      this.$vuetify.theme.themes[this.$vuetify.theme.dark ? "dark" : "light"][
+        event.explicitOriginalTarget.__vue__.color
+      ]
+    );
+    this.$data.colorType = event.explicitOriginalTarget.__vue__.color;
+  }
+  saveTheme(): void {
+    const themes = this.$vuetify.theme.themes;
+    localStorage.palette = JSON.stringify({ themes });
+  }
+  changeColor(): void {
+    //   this.$i18n.locale = "en";
+    this.$vuetify.theme.themes[this.$vuetify.theme.dark ? "dark" : "light"][
+      `${this.$data.colorType}`
+    ] = this.$data.color.substring(0, 7);
+  }
+  setDefaultTheme(): void {
+    this.$vuetify.theme.themes.dark = JSON.parse(
+      localStorage.defaultPalette
+    ).themes.dark;
+    this.$vuetify.theme.themes.light = JSON.parse(
+      localStorage.defaultPalette
+    ).themes.light;
+  }
+}
 </script>
 
 <style lang="scss">
