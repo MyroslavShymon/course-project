@@ -2,7 +2,9 @@
   <v-col cols="8" md="8" class="pl-0">
     <v-card>
       <v-toolbar flat color="secondary">
-        <v-toolbar-title class="black--text">Help Center</v-toolbar-title>
+        <v-toolbar-title class="black--text">{{
+          $t("profileMenuList.settings")
+        }}</v-toolbar-title>
       </v-toolbar>
       <v-tabs vertical class="text--primary" color="secondary">
         <v-tab
@@ -12,7 +14,7 @@
           :key="item.text"
         >
           <v-icon left class="text--primary">{{ item.icon }}</v-icon>
-          {{ item.text }}
+          {{ $t(`${item.text}`) }}
         </v-tab>
 
         <v-tab-item>
@@ -42,23 +44,7 @@
           <Theme />
         </v-tab-item>
         <v-tab-item>
-          <v-card flat>
-            <v-card-text>
-              <p>
-                Fusce a quam. Phasellus nec sem in justo pellentesque facilisis.
-                Nam eget dui. Proin viverra, ligula sit amet ultrices semper,
-                ligula arcu tristique sapien, a accumsan nisi mauris ac eros. In
-                dui magna, posuere eget, vestibulum et, tempor auctor, justo.
-              </p>
-
-              <p class="mb-0">
-                Cras sagittis. Phasellus nec sem in justo pellentesque
-                facilisis. Proin sapien ipsum, porta a, auctor quis, euismod ut,
-                mi. Donec quam felis, ultricies nec, pellentesque eu, pretium
-                quis, sem. Nam at tortor in tellus interdum sagittis.
-              </p>
-            </v-card-text>
-          </v-card>
+          <Language />
         </v-tab-item>
       </v-tabs>
     </v-card>
@@ -66,14 +52,15 @@
 </template>
 
 <script lang="ts">
-import { component } from "node_modules/vue/types/umd";
+// import { component } from "node_modules/vue/types/umd";
 import { Component, Vue } from "vue-property-decorator";
 
 import Theme from "@/components/app/Header/Setting/Theme.vue";
+import Language from "@/components/app/Header/Setting/Language.vue";
 
 @Component({
   name: "Settings",
-  components: { Theme },
+  components: { Theme, Language },
   data() {
     return {
       items: [

@@ -9,15 +9,15 @@
         v-model="color"
       ></v-color-picker>
       <v-select
-        label="Primary"
-        :items="Object.keys(this.$vuetify.theme.themes.dark)"
+        :label="$t('color.primary')"
+        :items="selectedColors"
         v-model="colorType"
         required
       ></v-select>
       <div class="d-flex flex-column">
         <div class="themes d-flex">
           <div>
-            <div>Current palette</div>
+            <div>{{ $t("Current palette") }}</div>
             <div class="theme">
               <v-tooltip bottom v-for="color of currentCollors" :key="color">
                 <template v-slot:activator="{ on, attrs }">
@@ -32,13 +32,13 @@
                   >
                   </v-btn>
                 </template>
-                <span>{{ color }}</span>
+                <span>{{ $t(`color.${color}`) }}</span>
               </v-tooltip>
             </div>
           </div>
           <div>
-            <div>Default palette</div>
-            <div class="theme ml-2">
+            <div>{{ $t("Default palette") }}</div>
+            <div class="theme">
               <v-tooltip
                 bottom
                 v-for="color of defaultCollors"
@@ -55,7 +55,7 @@
                   >
                   </v-btn>
                 </template>
-                <span>{{ color.colorType }}</span>
+                <span>{{ $t(`color.${color.colorType}`) }}</span>
               </v-tooltip>
             </div>
           </div>
@@ -71,7 +71,7 @@
           @click="runButtonsMethods(button.function_name)"
           color="primary"
           small
-          >{{ button.text }}</v-btn
+          >{{ $t(`${button.text}`) }}</v-btn
         >
       </div>
     </v-card-text>
@@ -79,7 +79,9 @@
 </template>
 
 <script lang="ts">
+import { TranslateResult } from "node_modules/vue-i18n/types";
 import { Component, Vue } from "vue-property-decorator";
+
 @Component({
   name: "Theme",
   data: () => ({
@@ -111,10 +113,16 @@ import { Component, Vue } from "vue-property-decorator";
   },
 })
 export default class Theme extends Vue {
-  runButtonsMethods(method: string): void {
+  private get selectedColors(): TranslateResult[] {
+    return Object.keys(this.$vuetify.theme.themes.dark).map(
+      (color: string): TranslateResult => this.$t(`color.${color}`)
+    );
+  }
+
+  private runButtonsMethods(method: string): void {
     this[method as keyof Theme]();
   }
-  getColor(event: any): void {
+  private getColor(event: any): void {
     /////////////////////////////fix any
     console.log(event);
 
@@ -125,17 +133,17 @@ export default class Theme extends Vue {
     );
     this.$data.colorType = event.explicitOriginalTarget.__vue__.color;
   }
-  saveTheme(): void {
+  private saveTheme(): void {
     const themes = this.$vuetify.theme.themes;
     localStorage.palette = JSON.stringify({ themes });
   }
-  changeColor(): void {
+  private changeColor(): void {
     //   this.$i18n.locale = "en";
     this.$vuetify.theme.themes[this.$vuetify.theme.dark ? "dark" : "light"][
       `${this.$data.colorType}`
     ] = this.$data.color.substring(0, 7);
   }
-  setDefaultTheme(): void {
+  private setDefaultTheme(): void {
     this.$vuetify.theme.themes.dark = JSON.parse(
       localStorage.defaultPalette
     ).themes.dark;
