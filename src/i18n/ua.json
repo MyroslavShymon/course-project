@@ -37,6 +37,12 @@
   "Country": "Країна",
   "Change country": "Змінити країну",
   "Default palette": "Полотно за замовчуванням",
+  "Recent Logins": "Недавні входи",
+  "Click your picture or add an account": "Клацніть на своє зображення або додайте обліковий запис",
+  "Password": "Пароль",
+  "Log in": "Увійти",
+  "Register": "Зареєструватись",
+  "Forgot Password?": "Забули пароль?",
   "color": {
     "primary": "Головний",
     "secondary": "Другорядний",

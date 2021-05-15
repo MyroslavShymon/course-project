@@ -3,8 +3,10 @@
     <v-col class="pt-0">
       <Logo />
       <div>
-        <h2>Recent Logins</h2>
-        <h4 class="text--secondary">Click your picture or add an account</h4>
+        <h2>{{ $t("Recent Logins") }}</h2>
+        <h4 class="text--secondary">
+          {{ $t("Click your picture or add an account") }}
+        </h4>
       </div>
     </v-col>
     <v-col md="5">
@@ -18,29 +20,31 @@
             v-model.trim="email"
           ></v-text-field>
           <v-text-field
-            label="Password"
+            :label="$t('Password')"
             required
             color="primary"
             :rules="rulesPasswordInput"
             v-model.trim="password"
           ></v-text-field>
           <v-btn
-            color="secondary mt-4 color_black"
+            color="secondary color_black"
             block
             type="submit"
             :disabled="this.$v.$invalid"
           >
-            Log in
+            {{ $t("Log in") }}
           </v-btn>
 
           <router-link to="forgot-password" class="mt-4 email-forgot d-block">
-            Forgot Password
+            {{ $t("Forgot Password?") }}
           </router-link>
 
           <v-divider class="mt-4"></v-divider>
 
           <router-link to="register" class="text-decoration-none">
-            <v-btn color="secondary mt-4 color_black" block> Register </v-btn>
+            <v-btn color="secondary mt-4 color_black" block>
+              {{ $t("Register") }}
+            </v-btn>
           </router-link>
         </form>
       </v-card>

@@ -10,6 +10,7 @@
         <router-view class="app-content" />
       </v-container>
     </v-main>
+    <Footer />
   </v-app>
 </template>
 
@@ -17,11 +18,13 @@
 import Vue from "vue";
 
 import Header from "@/components/app/Header/Header.vue";
+import Footer from "@/components/app/Footer.vue";
 
 export default Vue.extend({
   name: "App",
   components: {
     Header,
+    Footer,
   },
 });
 </script>
