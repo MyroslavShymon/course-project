@@ -82,6 +82,10 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
+import { MyStore } from "@/store/store/store";
+import { useStore } from "vuex-simple";
+import User from "@/store/modules/User";
+
 import { ValidationEvaluation, ValidationProperties } from "vue/types/vue";
 import { Validation, validationMixin } from "vuelidate";
 import { required, minLength, email } from "vuelidate/lib/validators";
@@ -123,6 +127,8 @@ import Logo from "@/components/app/Logo.vue";
   },
 })
 export default class Register extends Vue {
+  private store: MyStore = useStore(this.$store);
+
   private get rulesUserNameInput(): Array<
     string | (Validation & ValidationProperties<any> & ValidationEvaluation)
   > {
@@ -197,7 +203,17 @@ export default class Register extends Vue {
     if (!this.$v.$invalid) {
       this.$data.success = true;
       this.$data.error = false;
-      console.log("Succes");
+      this.store.user = new User(
+        this.$data.email,
+        this.$data.password,
+        this.$data.username,
+        this.$data.name,
+        this.$data.surname,
+        this.$data.phoneNumber,
+        this.$data.confirmPassword
+      );
+
+      console.log("Succes", this.store.user);
       return;
     }
     if (this.$v.$invalid) {
