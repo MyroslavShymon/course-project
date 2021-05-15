@@ -9,10 +9,7 @@
         @click="mutablePropDrawer"
         v-show="burger"
       ></v-app-bar-nav-icon>
-      <div class="d-flex align-center">
-        <Logo />
-        <span class="organizer mx-1 primary--text d-flex">Organizer++</span>
-      </div>
+      <Logo />
     </v-col>
     <Search />
     <v-spacer></v-spacer>

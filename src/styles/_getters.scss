@@ -5,9 +5,12 @@
 .background_default_dark_1 {
   background-color: $default_1-base !important;
 }
-/*.color_default_dark_0 {
+.color_default_dark_0 {
   color: $default_dark_0;
-}*/
+}
+.color_black {
+  color: $black !important;
+}
 
 /*$white*/
 .background_white {
