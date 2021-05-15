@@ -42,7 +42,16 @@
   "Password": "Пароль",
   "Log in": "Увійти",
   "Register": "Зареєструватись",
+  "It's quick and easy.": "Це швидко і просто.",
   "Forgot Password?": "Забули пароль?",
+  "user": {
+    "Username": "Ім'я користувача",
+    "Name": "Ім'я",
+    "Surname": "Прізвище",
+    "E-mail": "E-mail",
+    "Phone number": "Номер телефону",
+    "Confirm Password": "Підтвердження пароля"
+  },
   "color": {
     "primary": "Головний",
     "secondary": "Другорядний",

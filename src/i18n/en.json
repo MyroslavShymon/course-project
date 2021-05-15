@@ -43,6 +43,15 @@
   "Log in": "Log in",
   "Forgot Password?": "Forgot Password?",
   "Register": "Register",
+  "It's quick and easy.": "It's quick and easy.",
+  "user": {
+    "Username": "Username",
+    "Name": "Name",
+    "Surname": "Surname",
+    "E-mail": "E-mail",
+    "Phone number": "Phone number",
+    "Confirm Password": "Confirm Password"
+  },
   "color": {
     "primary": "Primary",
     "secondary": "Secondary",
