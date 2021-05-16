@@ -24,6 +24,7 @@
       </router-link>
       <v-btn
         v-else-if="item.exit"
+        @click="logoutUser"
         :key="i"
         depressed
         small
@@ -122,6 +123,8 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { MyStore } from "@/store/store/store";
+import { useStore } from "vuex-simple";
 
 import Combinations from "./Combinations.vue";
 import HelpAndAccessability from "./HelpAndAccessability.vue";
@@ -198,7 +201,12 @@ import HelpAndAccessability from "./HelpAndAccessability.vue";
     },
   },
 })
-export default class ProfileMenuList extends Vue {}
+export default class ProfileMenuList extends Vue {
+  private store: MyStore = useStore(this.$store);
+  logoutUser() {
+    this.store.auth.logout();
+  }
+}
 </script>
 
 <style>

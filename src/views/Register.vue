@@ -68,6 +68,9 @@
         >
           {{ $t("Register") }}
         </v-btn>
+        <v-alert v-if="error" type="success" class="mt-2">{{
+          $t(`errors.${error}`)
+        }}</v-alert>
         <v-divider class="mt-4"></v-divider>
         <router-link to="login" class="text-decoration-none">
           <v-btn color="secondary mt-4 color_black" block>
@@ -122,8 +125,7 @@ import { AxiosResponse } from "node_modules/axios";
       surname: "",
       phoneNumber: "",
       confirmPassword: "",
-      success: false,
-      error: false,
+      error: "",
     };
   },
 })
@@ -202,8 +204,6 @@ export default class Register extends Vue {
   private login() {
     this.$v.$touch();
     if (!this.$v.$invalid) {
-      this.$data.success = true;
-      this.$data.error = false;
       this.store.user = new User(
         this.$data.email,
         this.$data.password,
@@ -216,7 +216,7 @@ export default class Register extends Vue {
       this.store.auth
         .register(this.store.user)
         .then((res: AxiosResponse<any>) => {
-          console.log("res: AxiosResponse<any>", res);
+          this.$data.error = this.store.auth.error;
 
           if (res.data.success) {
             console.log("Succes", this.store.user);

@@ -44,6 +44,16 @@
   "Register": "Зареєструватись",
   "It's quick and easy.": "Це швидко і просто.",
   "Forgot Password?": "Забули пароль?",
+  "errors": {
+    "Bad data": "Погані дані",
+    "Password do not match.": "Пароль не збігається.",
+    "Username is already taken.": "Ім'я користувача вже зайняте.",
+    "Email is already registred. Did you forgot your email?": "Електронна пошта вже зареєстрована. Ви забули свою електронну пошту?",
+    "Phone number is already taken. Did you forgot your Phone number?": "Номер телефону вже прийнятий. Ви забули свій номер телефону?",
+    "Something went wrong": "Щось пішло не так",
+    "Email is not found": "Електронну адресу не знайдено",
+    "Incorrect password": "Неправильний пароль"
+  },
   "user": {
     "Username": "Ім'я користувача",
     "Name": "Ім'я",

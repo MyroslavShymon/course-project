@@ -44,6 +44,16 @@
   "Forgot Password?": "Forgot Password?",
   "Register": "Register",
   "It's quick and easy.": "It's quick and easy.",
+  "errors": {
+    "Bad data": "Bad data",
+    "Password do not match.": "Password do not match.",
+    "Username is already taken.": "Username is already taken.",
+    "Email is already registred. Did you forgot your email?": "Email is already registred. Did you forgot your email?",
+    "Phone number is already taken. Did you forgot your Phone number?": "Phone number is already taken. Did you forgot your Phone number?",
+    "Something went wrong": "Something went wrong",
+    "Email is not found": "Email is not found",
+    "Incorrect password": "Incorrect password"
+  },
   "user": {
     "Username": "Username",
     "Name": "Name",

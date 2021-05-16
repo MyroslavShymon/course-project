@@ -35,6 +35,10 @@
             {{ $t("Log in") }}
           </v-btn>
 
+          <v-alert v-if="error" type="success" class="mt-2">{{
+            $t(`errors.${error}`)
+          }}</v-alert>
+
           <router-link to="forgot-password" class="mt-4 email-forgot d-block">
             {{ $t("Forgot Password?") }}
           </router-link>
@@ -60,9 +64,10 @@ import { Validation, validationMixin } from "vuelidate";
 import { required, minLength, email } from "vuelidate/lib/validators";
 import { MyStore } from "@/store/store/store";
 import { useStore } from "vuex-simple";
-import Logo from "@/components/app/Logo.vue";
-import UserToLogin from "@/store/modules/UserToLogin";
 import { AxiosResponse } from "node_modules/axios";
+
+import UserToLogin from "@/store/modules/UserToLogin";
+import Logo from "@/components/app/Logo.vue";
 
 @Component({
   name: "Login",
@@ -78,8 +83,7 @@ import { AxiosResponse } from "node_modules/axios";
     return {
       password: "",
       email: "",
-      success: false,
-      error: false,
+      error: "",
     };
   },
 })
@@ -113,8 +117,6 @@ export default class Login extends Vue {
   private login() {
     this.$v.$touch();
     if (!this.$v.$invalid) {
-      this.$data.success = true;
-      this.$data.error = false;
       this.store.useLogin = new UserToLogin(
         this.$data.email,
         this.$data.password
@@ -122,14 +124,16 @@ export default class Login extends Vue {
       this.store.auth
         .login(this.store.useLogin)
         .then((res: AxiosResponse<any>) => {
+          this.$data.error = this.store.auth.error;
+
           if (res.data.success) {
+            localStorage.isAuthOrganizer = true;
             this.$router.push("/");
           }
         })
         .catch((err) => {
           console.log(err);
         });
-      console.log("Succes");
       return;
     }
     if (this.$v.$invalid) {

@@ -1,14 +1,34 @@
 <template>
-  <div id="app">
+  <div id="app" v-if="userRequestDone">
     <Keypress v-if="true" key-event="keyup" @success="someMethod" />
     <component :is="layout">
       <router-view />
     </component>
   </div>
+  <div
+    style="
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    "
+    :style="{ backgroundColor: activeColor }"
+    v-else
+  >
+    <v-progress-circular
+      :size="70"
+      :width="7"
+      style="color: #a279ff"
+      indeterminate
+    ></v-progress-circular>
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { MyStore } from "@/store/store/store";
+import { useStore } from "vuex-simple";
 
 import EmptyLayout from "@/components/layouts/EmptyLayout.vue";
 import MainLayout from "@/components/layouts/MainLayout.vue";
@@ -58,7 +78,31 @@ import MainLayout from "@/components/layouts/MainLayout.vue";
   },
 })
 export default class App extends Vue {
-  created() {
+  private store: MyStore = useStore(this.$store);
+  private userRequestDone: boolean = false;
+  private activeColor =
+    localStorage.themeColor === "false" ? "#ffffff" : "#363636";
+
+  // async mounted() {
+
+  // }
+
+  async created() {
+    console.log(this.$vuetify);
+
+    if (localStorage.isAuthOrganizer === "true") {
+      await this.store.auth.getProfile();
+      await this.store.auth.currentUser;
+      if (this.store.auth.currentUser) {
+        this.userRequestDone = true;
+      }
+    }
+    this.userRequestDone = true;
+
+    if (localStorage.isAuthOrganizer === undefined) {
+      localStorage.isAuthOrganizer = false;
+    }
+
     if (!localStorage.palette) {
       const themes = this.$vuetify.theme.themes;
       localStorage.palette = JSON.stringify({ themes });

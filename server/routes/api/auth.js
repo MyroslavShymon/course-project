@@ -20,7 +20,7 @@ router.post("/register", async (req, res) => {
     if (!errors.isEmpty()) {
       return res.status(400).json({
         errors: errors.array(),
-        message: "Bad data",
+        msg: "Bad data",
       });
     }
 
@@ -53,7 +53,15 @@ router.post("/register", async (req, res) => {
     });
     if (candidateUniqueEmail) {
       return res.status(400).json({
-        msg: "Email is already registred. Did you forgot your password.",
+        msg: "Email is already registred. Did you forgot your email?",
+      });
+    } // Check for the Unique PhoneNumber
+    const candidateUniquePhoneNumber = await User.findOne({
+      phoneNumber: _phoneNumber,
+    });
+    if (candidateUniquePhoneNumber) {
+      return res.status(400).json({
+        msg: "Phone number is already taken. Did you forgot your Phone number?",
       });
     }
     // The data is valid and new we can register the user
@@ -69,9 +77,9 @@ router.post("/register", async (req, res) => {
     });
     await user.save();
 
-    res.status(201).json({ message: "User is created!!!", success: true });
+    res.status(201).json({ msg: "User is created!!!", success: true });
   } catch (error) {
-    res.status(500).json({ message: "Something went wrong" });
+    res.status(500).json({ msg: "Something went wrong" });
     console.log(error);
   }
 });
@@ -89,24 +97,21 @@ router.post("/login", async (req, res) => {
     if (!errors.isEmpty()) {
       return res.status(400).json({
         errors: errors.array(),
-        message: "Bad data",
+        msg: "Bad data",
       });
     }
 
     const { _email, _password } = req.body;
-    console.log("login req.body", req.body);
-    console.log("_email", _email);
     const user = await User.findOne({ email: _email });
-    console.log("login user founded", user, "uraaaaaaaaaAAAAAAA");
 
     if (!user) {
-      return res.status(400).json({ message: "Email is not found" });
+      return res.status(400).json({ msg: "Email is not found" });
     }
 
     const isMatch = await bcrypt.compare(_password, user.password);
 
     if (!isMatch) {
-      return res.status(400).json({ message: "Incorrect password" });
+      return res.status(400).json({ msg: "Incorrect password" });
     }
     const token = jwt.sign(
       {
@@ -131,30 +136,26 @@ router.post("/login", async (req, res) => {
       }
     );
   } catch (e) {
-    res.status(500).json({ message: "Something went wrong" });
+    res.status(500).json({ msg: "Something went wrong" });
   }
 });
 
-// /**
-//  * @route GET api/users/profile
-//  * @desc Return the User's Data
-//  * @access Private
-//  */
-// router.get(
-//   "/profile",
-//   passport.authenticate("jwt", {
-//     session: false,
-//   }),
-//   async (req, res) => {
-//     // const user = await User.findOne({ username });
-//     const stories = await Story.find({ author: req.user._id });
-//     console.log("req.user", req.user);
-//     return res.json({
-//       user: req.user,
-//       stories: stories,
-//     });
-//   }
-// );
+/**
+ * @route POST api/users/profle
+ * @desc Return the User's Data
+ * @access Private
+ */
+router.get(
+  "/",
+  passport.authenticate("jwt", {
+    session: false,
+  }),
+  (req, res) => {
+    return res.json({
+      user: req.user,
+    });
+  }
+);
 // /**
 //  * @route POST api/users/profile
 //  * @desc Return the User's Data
@@ -165,7 +166,7 @@ router.post("/login", async (req, res) => {
 //   const user = await User.findOne({ username });
 
 //   if (!user) {
-//     return res.status(400).json({ message: "Username is not found" });
+//     return res.status(400).json({ msg: "Username is not found" });
 //   }
 //   const story = new Story({
 //     author: user._id,
@@ -174,7 +175,7 @@ router.post("/login", async (req, res) => {
 //   await story.save();
 //   const stories = await Story.find({ author: user._id });
 //   res.status(201).json({
-//     message: "story is created!!!",
+//     msg: "story is created!!!",
 //     success: true,
 //     story: story,
 //     stories: stories,

@@ -1,7 +1,7 @@
 import { State } from "vuex-simple";
-import IUser from "../interfaces/IUser";
+import IUserToLogin from "../interfaces/IUserToLogin";
 
-export default class UserToLogin implements IUser {
+export default class UserToLogin implements IUserToLogin {
   @State()
   private _email: string;
   @State()
