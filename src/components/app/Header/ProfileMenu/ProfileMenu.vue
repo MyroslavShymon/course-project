@@ -2,7 +2,6 @@
   <v-container fluid>
     <v-row justify="end">
       <v-menu
-        v-if="isAuth"
         bottom
         min-width="200px"
         rounded
@@ -53,7 +52,6 @@ import { randomColors } from "@/global/constants";
 export default class ProfileMenu extends Vue {
   private store: MyStore = useStore(this.$store);
   public randomedColor!: string;
-  public isAuth: boolean = false;
   private name: string = "";
   private surname: string = "";
   private userMenuAbbr!: string;
@@ -69,7 +67,6 @@ export default class ProfileMenu extends Vue {
       this.userMenuAbbr =
         this.name[0].toUpperCase() + this.surname[0].toUpperCase();
     }
-    this.isAuth = localStorage.isAuthOrganizer === "false" ? false : true;
   }
   async mounted() {
     // if (await this.store.auth.currentUser) {

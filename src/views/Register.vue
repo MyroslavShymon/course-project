@@ -69,7 +69,7 @@
           {{ $t("Register") }}
         </v-btn>
         <v-alert v-if="error" type="success" class="mt-2">{{
-          $t(`errors.${error}`)
+          $t(`${error}`)
         }}</v-alert>
         <v-divider class="mt-4"></v-divider>
         <router-link to="login" class="text-decoration-none">
@@ -204,6 +204,7 @@ export default class Register extends Vue {
   private login() {
     this.$v.$touch();
     if (!this.$v.$invalid) {
+      this.$data.error = "";
       this.store.user = new User(
         this.$data.email,
         this.$data.password,
