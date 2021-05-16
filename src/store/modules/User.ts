@@ -1,4 +1,4 @@
-import { Action, Getter, Mutation, State } from "vuex-simple";
+import { State } from "vuex-simple";
 import IUser from "../interfaces/IUser";
 
 export default class User implements IUser {

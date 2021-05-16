@@ -1,0 +1,5 @@
+{
+  "port": 5001,
+  "jwtSecret": "myrosl",
+  "mongoUrl": "mongodb+srv://myroslavshymon:LAzsrN347MftJNL@cluster0.ippmr.mongodb.net/app?retryWrites=true&w=majority"
+}

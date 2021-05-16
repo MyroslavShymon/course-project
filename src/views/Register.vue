@@ -91,6 +91,7 @@ import { Validation, validationMixin } from "vuelidate";
 import { required, minLength, email } from "vuelidate/lib/validators";
 
 import Logo from "@/components/app/Logo.vue";
+import { AxiosResponse } from "node_modules/axios";
 
 @Component({
   name: "Login",
@@ -212,8 +213,19 @@ export default class Register extends Vue {
         this.$data.phoneNumber,
         this.$data.confirmPassword
       );
+      this.store.auth
+        .register(this.store.user)
+        .then((res: AxiosResponse<any>) => {
+          console.log("res: AxiosResponse<any>", res);
 
-      console.log("Succes", this.store.user);
+          if (res.data.success) {
+            console.log("Succes", this.store.user);
+            this.$router.push("/login");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
       return;
     }
     if (this.$v.$invalid) {
