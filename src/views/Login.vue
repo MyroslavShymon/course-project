@@ -58,7 +58,11 @@ import { Component } from "vue-property-decorator";
 import { ValidationEvaluation, ValidationProperties } from "vue/types/vue";
 import { Validation, validationMixin } from "vuelidate";
 import { required, minLength, email } from "vuelidate/lib/validators";
+import { MyStore } from "@/store/store/store";
+import { useStore } from "vuex-simple";
 import Logo from "@/components/app/Logo.vue";
+import UserToLogin from "@/store/modules/UserToLogin";
+import { AxiosResponse } from "node_modules/axios";
 
 @Component({
   name: "Login",
@@ -80,6 +84,7 @@ import Logo from "@/components/app/Logo.vue";
   },
 })
 export default class Login extends Vue {
+  private store: MyStore = useStore(this.$store);
   private password: string = "";
   private email: string = "";
 
@@ -110,6 +115,20 @@ export default class Login extends Vue {
     if (!this.$v.$invalid) {
       this.$data.success = true;
       this.$data.error = false;
+      this.store.useLogin = new UserToLogin(
+        this.$data.email,
+        this.$data.password
+      );
+      this.store.auth
+        .login(this.store.useLogin)
+        .then((res: AxiosResponse<any>) => {
+          if (res.data.success) {
+            this.$router.push("/");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
       console.log("Succes");
       return;
     }

@@ -69,16 +69,6 @@ router.post("/register", async (req, res) => {
     });
     await user.save();
 
-    // function randomString() {
-    //   let alphabet = "qwertyuiopasdfghjklzxcvbnm",
-    //     word = "";
-    //   for (let i = 0; i < 6; i++) {
-    //     word += alphabet[Math.round(Math.random() * (alphabet.length - 1))];
-    //   }
-    //   return word;
-    // }
-    // const text = randomString();
-
     res.status(201).json({ message: "User is created!!!", success: true });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
@@ -86,62 +76,64 @@ router.post("/register", async (req, res) => {
   }
 });
 
-// /**
-//  * @route POST api/auth/login
-//  * @desc Login the User
-//  * @access Public
-//  */
+/**
+ * @route POST api/auth/login
+ * @desc Login the User
+ * @access Public
+ */
 
-// router.post("/login", async (req, res) => {
-//   try {
-//     const errors = validationResult(req);
+router.post("/login", async (req, res) => {
+  try {
+    const errors = validationResult(req);
 
-//     if (!errors.isEmpty()) {
-//       return res.status(400).json({
-//         errors: errors.array(),
-//         message: "Bad data",
-//       });
-//     }
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        errors: errors.array(),
+        message: "Bad data",
+      });
+    }
 
-//     const { username, password } = req.body;
-//     console.log("login req.body", req.body);
+    const { _email, _password } = req.body;
+    console.log("login req.body", req.body);
+    console.log("_email", _email);
+    const user = await User.findOne({ email: _email });
+    console.log("login user founded", user, "uraaaaaaaaaAAAAAAA");
 
-//     const user = await User.findOne({ username });
-//     console.log("login user founded", user, "uraaaaaaaaaAAAAAAA");
+    if (!user) {
+      return res.status(400).json({ message: "Email is not found" });
+    }
 
-//     if (!user) {
-//       return res.status(400).json({ message: "Username is not found" });
-//     }
+    const isMatch = await bcrypt.compare(_password, user.password);
 
-//     const isMatch = await bcrypt.compare(password, user.password);
-
-//     if (!isMatch) {
-//       return res.status(400).json({ message: "Incorrect password" });
-//     }
-//     const token = jwt.sign(
-//       {
-//         _id: user._id,
-//         username: user.username,
-//         name: user.name,
-//         email: user.email,
-//       },
-//       config.get("jwtSecret"),
-//       {
-//         expiresIn: "1h",
-//       },
-//       (err, token) => {
-//         res.status(200).json({
-//           success: true,
-//           token: `Bearer ${token}`,
-//           user: user,
-//           msg: "Hurry! You are now logged in.",
-//         });
-//       }
-//     );
-//   } catch (e) {
-//     res.status(500).json({ message: "Something went wrong" });
-//   }
-// });
+    if (!isMatch) {
+      return res.status(400).json({ message: "Incorrect password" });
+    }
+    const token = jwt.sign(
+      {
+        _id: user._id,
+        username: user.username,
+        name: user.name,
+        surname: user.surname,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+      },
+      config.get("jwtSecret"),
+      {
+        expiresIn: "1h",
+      },
+      (err, token) => {
+        res.status(200).json({
+          success: true,
+          token: `Bearer ${token}`,
+          user: user,
+          msg: "Hurry! You are now logged in.",
+        });
+      }
+    );
+  } catch (e) {
+    res.status(500).json({ message: "Something went wrong" });
+  }
+});
 
 // /**
 //  * @route GET api/users/profile
