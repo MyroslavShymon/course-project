@@ -88,7 +88,9 @@ export default class App extends Vue {
   // }
 
   async created() {
-    console.log(this.$vuetify);
+    if (localStorage.recentLogins === undefined) {
+      localStorage.recentLogins = JSON.stringify([]);
+    }
 
     if (localStorage.isAuthOrganizer === "true") {
       await this.store.auth.getProfile();

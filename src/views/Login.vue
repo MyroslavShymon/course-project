@@ -2,11 +2,27 @@
   <v-col cols="12" md="8" class="form-wrapper d-flex align-self-center">
     <v-col class="pt-0">
       <Logo />
-      <div>
+      <div style="height: 100%">
         <h2>{{ $t("Recent Logins") }}</h2>
         <h4 class="text--secondary">
           {{ $t("Click your picture or add an account") }}
         </h4>
+        <div class="d-flex mt-3">
+          <div
+            style="
+              width: 120px;
+              height: 160px;
+              word-wrap: break-word;
+              cursor: pointer;
+            "
+            class="mr-4 rounded-lg background_primary pt-8"
+            v-for="recentLoginItem of recentLogins.slice(0, 3)"
+            :key="recentLoginItem"
+            @click="setEmail(recentLoginItem)"
+          >
+            {{ recentLoginItem }}
+          </div>
+        </div>
       </div>
     </v-col>
     <v-col md="5">
@@ -89,8 +105,13 @@ import Logo from "@/components/app/Logo.vue";
 })
 export default class Login extends Vue {
   private store: MyStore = useStore(this.$store);
+  private recentLogins: string[] = JSON.parse(localStorage.recentLogins);
   private password: string = "";
   private email: string = "";
+
+  private setEmail(email: string) {
+    this.email = email;
+  }
 
   private get rulesPasswordInput(): Array<
     string | (Validation & ValidationProperties<any> & ValidationEvaluation)
@@ -128,6 +149,27 @@ export default class Login extends Vue {
 
           if (res.data.success) {
             localStorage.isAuthOrganizer = true;
+            console.log("res.data login", res.data.user.email);
+
+            // console.log(
+            //   "this.recentLogins.indexOf(res.data.user.email)",
+            //   this.recentLogins.indexOf(res.data.user.email)
+            // );
+
+            if (this.recentLogins.indexOf(res.data.user.email) === -1) {
+              this.recentLogins.unshift(res.data.user.email);
+              localStorage.recentLogins = JSON.stringify(this.recentLogins);
+            }
+            console.log(
+              "this.store.auth.recentLogins",
+              this.recentLogins,
+              "JSON.parse",
+              JSON.parse(localStorage.recentLogins)
+            );
+
+            // localStorage.recentLogins = JSON.stringify();
+
+            // localStorage.recentLogins
             this.$router.push("/");
           }
         })
