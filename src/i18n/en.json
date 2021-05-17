@@ -52,6 +52,10 @@
   "Something went wrong": "Something went wrong",
   "Email is not found": "Email is not found",
   "Incorrect password": "Incorrect password",
+  "Note title": "Note title",
+  "Note description": "Note description",
+  "Set": "Set",
+  "Enter the title": "Enter the title",
   "user": {
     "Username": "Username",
     "Name": "Name",

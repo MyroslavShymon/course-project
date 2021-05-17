@@ -52,6 +52,10 @@
   "Something went wrong": "Щось пішло не так",
   "Email is not found": "Електронну адресу не знайдено",
   "Incorrect password": "Неправильний пароль",
+  "Note title": "Заголовок замітки",
+  "Note description": "Замітка",
+  "Enter the title": "Введіть заголовок",
+  "Set": "Добавити",
   "user": {
     "Username": "Ім'я користувача",
     "Name": "Ім'я",
