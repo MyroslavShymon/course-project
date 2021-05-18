@@ -94,11 +94,17 @@ export default class App extends Vue {
     if (localStorage.task === undefined) {
       localStorage.task = JSON.stringify([]);
     }
+    if (localStorage.reminder === undefined) {
+      localStorage.reminder = JSON.stringify([]);
+    }
     if (localStorage.notesGroupNames === undefined) {
       localStorage.notesGroupNames = JSON.stringify([]);
     }
     if (localStorage.notesTaskNames === undefined) {
       localStorage.notesTaskNames = JSON.stringify([]);
+    }
+    if (localStorage.notesReminderNames === undefined) {
+      localStorage.notesReminderNames = JSON.stringify([]);
     }
     if (localStorage.recentLogins === undefined) {
       localStorage.recentLogins = JSON.stringify([]);

@@ -52,7 +52,7 @@
           </v-btn>
 
           <v-alert v-if="error" type="success" class="mt-2">{{
-            $t(`errors.${error}`)
+            $t(`${error}`)
           }}</v-alert>
 
           <router-link to="forgot-password" class="mt-4 email-forgot d-block">

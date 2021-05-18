@@ -5,11 +5,13 @@ import Auth from "../modules/Auth";
 import UserToLogin from "../modules/UserToLogin";
 import Note from "../modules/Note";
 import Task from "../modules/Task";
+import Reminder from "../modules/Reminder";
 
 export class MyStore {
   public user = new User("", "", "", "", "", "", "");
   public note = new Note("", "", false, "");
-  public task = new Task("", "", false, "", 1);
+  public task = new Task("", "", false, "", 1, false);
+  public reminder = new Reminder("", "", false, "", "", "", false);
   public useLogin = new UserToLogin("", "");
   public auth = new Auth();
   public languages = new CountryData();

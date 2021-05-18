@@ -63,10 +63,10 @@ export default class Note implements INote {
   public sortByGroupName(typeofNote: string): INote[] {
     let notes = JSON.parse(localStorage[typeofNote]);
     return notes.sort((a: any, b: any) => {
-      if (a._group < b._group) {
+      if (a._group > b._group) {
         return 1;
       }
-      if (a._group > b._group) {
+      if (a._group < b._group) {
         return -1;
       }
       return 0;

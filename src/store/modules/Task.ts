@@ -1,11 +1,10 @@
 import { State } from "vuex-simple";
 import INote from "../interfaces/INote";
-import Note from "./Note";
+import NoteDoneAbstract from "./NoteDoneAbstract";
 
-export default class Task extends Note {
+export default class Task extends NoteDoneAbstract {
   @State()
   private _priority: number;
-  private _done: boolean;
 
   constructor(
     title: string,
@@ -15,23 +14,16 @@ export default class Task extends Note {
     priority: number,
     done: boolean
   ) {
-    super(title, description, pin, group);
+    super(title, description, pin, group, done);
     this._priority = priority;
-    this._done = done;
   }
 
   public set priority(priority: number) {
     this._priority = priority;
   }
-  public set done(done: boolean) {
-    this._done = done;
-  }
 
   public get priority(): number {
     return this._priority;
-  }
-  public get done(): boolean {
-    return this._done;
   }
 
   public sortByPriority(): INote[] {
