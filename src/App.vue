@@ -91,6 +91,9 @@ export default class App extends Vue {
     if (localStorage.note === undefined) {
       localStorage.note = JSON.stringify([]);
     }
+    if (localStorage.notesGroupNames === undefined) {
+      localStorage.notesGroupNames = JSON.stringify([]);
+    }
     if (localStorage.recentLogins === undefined) {
       localStorage.recentLogins = JSON.stringify([]);
     }

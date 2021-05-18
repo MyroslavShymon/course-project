@@ -24,45 +24,20 @@
             v-model.trim="noteDescription"
             @click="fieldShow = true"
           ></v-textarea>
-          <div class="d-flex flex-column align-center" v-if="fieldShow">
-            <v-text-field
-              style="width: 100%"
-              :label="$t('Group name')"
-              :placeholder="$t('Enter the name')"
-              color="primary"
-              v-model.trim="groupName"
-              @keyup.enter="addGroupName"
-            ></v-text-field>
-            <div class="d-flex" style="width: 100%">
-              <v-btn color="secondary color_black" @click="addGroupName">
-                {{ $t("Add group name") }}
-              </v-btn>
-              <v-btn
-                color="secondary color_black"
-                @click="sortByGroupName"
-                class="ml-2"
-              >
-                {{ $t("Sort by group name") }}
-              </v-btn>
-            </div>
-          </div>
+
           <v-btn
             color="secondary color_black"
             block
             type="submit"
             :disabled="this.$v.$invalid"
-            class="mt-2"
           >
             {{ $t("Set") }}
           </v-btn>
         </form>
-        <div class="mt-2" v-if="fieldShow">
-          <v-select
-            :items="groupNames"
-            :label="$t('Group names')"
-            outlined
-            v-model="groupNameSelected"
-          ></v-select>
+        <div class="mt-2">
+          <v-btn color="secondary color_black" @click="sortByPriority">
+            Sort by priorty
+          </v-btn>
         </div>
       </v-card>
       <draggable
@@ -80,53 +55,30 @@
           v-for="(note, noteIndex) of notes"
           :key="noteIndex"
         >
-          <v-card v-if="note._group" class="mt-1">
-            <div class="d-flex justify-space-between">
-              <v-card-title class="py-1"
-                >{{ note._title }} {{ $t("Group name")
-                }}{{ `: ${note._group}` }}</v-card-title
-              >
-              <v-card-actions class="d-flex align-center mx-4">
-                <v-icon
-                  class="pointer"
-                  @click="pinNote(note, noteIndex)"
-                  v-if="note._pin == false"
-                  >mdi-pin-outline</v-icon
-                >
-                <v-icon
-                  class="pointer"
-                  @click="pinNote(note, noteIndex)"
-                  v-if="note._pin == true"
-                  >mdi-pin</v-icon
-                >
-              </v-card-actions>
-            </div>
-            <div class="d-flex align-center">
-              <v-card-text>{{ note._description }} </v-card-text>
-              <v-menu bottom offset-y>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-icon
-                    class="mx-6 pa-2"
-                    style="width: 25px; height: 25px"
-                    v-bind="attrs"
-                    v-on="on"
-                    >mdi-dots-vertical</v-icon
-                  >
-                </template>
-                <v-list>
-                  <v-list-item @click="deleteNote(note)" class="pointer">
-                    <v-list-item-title>{{
-                      $t("Delete note")
-                    }}</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
-            </div>
-          </v-card>
-          <v-card v-else-if="note._group == ''" class="mt-1">
+          <v-card v-if="note._title" class="mt-1">
             <div class="d-flex justify-space-between">
               <v-card-title class="py-1">{{ note._title }}</v-card-title>
-              <v-card-actions class="d-flex align-center mx-4">
+              <v-card-actions class="d-flex align-center mx-4"
+                >{{
+                  note._priority === 1
+                    ? "Low"
+                    : note._priority === 2
+                    ? "Medium"
+                    : "High"
+                }}
+                <v-radio-group v-model="radioGroup" class="ml-2">
+                  <div class="v-radio-group-inner d-flex">
+                    <v-radio
+                      v-for="n in 3"
+                      :key="n"
+                      :value="`${noteIndex}` + `${n}`"
+                      class="ma-0"
+                      :name="`noteIndex${noteIndex}`"
+                      :color="n === 1 ? 'green' : n === 2 ? 'yellow' : 'red'"
+                      @click="priorityNote(note, noteIndex, n)"
+                    ></v-radio>
+                  </div>
+                </v-radio-group>
                 <v-icon
                   class="pointer"
                   @click="pinNote(note, noteIndex)"
@@ -141,33 +93,33 @@
                 >
               </v-card-actions>
             </div>
-            <div class="d-flex align-center">
-              <v-card-text>{{ note._description }} </v-card-text>
-              <v-menu bottom offset-y>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-icon
-                    class="mx-6 pa-2"
-                    style="width: 25px; height: 25px"
-                    v-bind="attrs"
-                    v-on="on"
-                    >mdi-dots-vertical</v-icon
-                  >
-                </template>
-                <v-list>
-                  <v-list-item @click="deleteNote(note)" class="pointer">
-                    <v-list-item-title>{{
-                      $t("Delete note")
-                    }}</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
-            </div>
+            <v-card-text>{{ note._description }} </v-card-text>
           </v-card>
           <v-card
             v-else-if="note._description"
             class="mt-1 px-4 pt-2 pb-3 d-flex flex-column"
           >
             <v-card-actions class="d-flex align-center justify-end pt-0">
+              {{
+                note._priority === 1
+                  ? "Low"
+                  : note._priority === 2
+                  ? "Medium"
+                  : "High"
+              }}
+              <v-radio-group v-model="radioGroup" class="ml-2">
+                <div class="v-radio-group-inner d-flex">
+                  <v-radio
+                    v-for="n in 3"
+                    :key="n"
+                    :value="`${noteIndex}` + `${n}`"
+                    :name="`noteIndex${noteIndex}`"
+                    :color="n === 1 ? 'green' : n === 2 ? 'yellow' : 'red'"
+                    class="ma-0"
+                    @click="priorityNote(note, noteIndex, n)"
+                  ></v-radio>
+                </div>
+              </v-radio-group>
               <v-icon
                 class="pointer"
                 @click="pinNote(note, noteIndex)"
@@ -181,32 +133,13 @@
                 >mdi-pin</v-icon
               >
             </v-card-actions>
-            <div class="d-flex align-center">
-              <v-card-text>{{ note._description }} </v-card-text>
-              <v-menu bottom offset-y>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-icon
-                    style="width: 25px; height: 25px"
-                    class="mx-6 pa-2"
-                    v-bind="attrs"
-                    v-on="on"
-                    >mdi-dots-vertical</v-icon
-                  >
-                </template>
-                <v-list>
-                  <v-list-item @click="deleteNote(note)" class="pointer">
-                    <v-list-item-title>{{
-                      $t("Delete note")
-                    }}</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
-            </div>
+            <v-card-text class="pa-0">{{ note._description }} </v-card-text>
           </v-card>
           <div v-else>There are no notes</div>
         </div>
       </draggable>
       <span class="d-none">{{ notesGet }}</span>
+      <span class="d-none">{{ notesPriorityGet }}</span>
     </v-col>
   </div>
 </template>
@@ -246,11 +179,10 @@ export default class Login extends Vue {
   private store: MyStore = useStore(this.$store);
   private noteTitle: string = "";
   private noteDescription: string = "";
-  private groupName: string = "";
-  private groupNameSelected: string = "";
-  private groupNames: string[] = [];
   private pin: boolean = false;
+  private priority: number = 1;
   private notes: INote[] = [];
+  private radioGroup: string = "";
 
   private get rulesNoteDescriptionInput(): Array<
     string | (Validation & ValidationProperties<any> & ValidationEvaluation)
@@ -260,34 +192,27 @@ export default class Login extends Vue {
         `${this.$t("This field is required")}.`,
     ];
   }
-  private deleteNote(note: INote) {
-    const filteredNoteArray: INote[] = this.store.note
-      .getNotes("note")
-      .filter(
-        (findNote: INote) => JSON.stringify(findNote) !== JSON.stringify(note)
-      );
-    this.notes = filteredNoteArray;
-    this.store.note.setNotesLocal("note", filteredNoteArray);
-  }
-  private addGroupName() {
-    this.groupNames.push(this.groupName);
-    console.log("this.groupNames", this.groupNames);
 
-    localStorage.notesGroupNames = JSON.stringify(this.groupNames);
+  private sortByPriority() {
+    this.notes = this.store.note.sortByPriority();
   }
+
   private checkMove(e: any) {
     window.console.log("Future index: ", e.draggedContext);
     console.log(this.notes);
   }
+
   public get notesGet(): INote[] {
     this.saveChanges(this.notes);
     return this.notes;
   }
+
+  public get notesPriorityGet(): string {
+    return this.radioGroup;
+  }
+
   private saveChanges(notes: INote[]) {
     localStorage.note = JSON.stringify(notes);
-  }
-  private sortByGroupName() {
-    this.notes = this.store.note.sortByGroupName();
   }
 
   private show(e: any) {
@@ -309,7 +234,19 @@ export default class Login extends Vue {
     );
 
     localStorage.note = JSON.stringify(pinNotesToLocalStorage);
-    this.notes = this.store.note.getLocal("note");
+    this.notes = this.store.note.getLocal();
+  }
+
+  private priorityNote(note: any, noteIndex: number, n: number) {
+    const priorityNotesToLocalStorage = JSON.parse(localStorage.note).map(
+      (item: any, itemIndex: number) => {
+        if (noteIndex === itemIndex) item._priority = n;
+        return item;
+      }
+    );
+
+    localStorage.note = JSON.stringify(priorityNotesToLocalStorage);
+    this.notes = this.store.note.getNotes();
   }
 
   private addNote() {
@@ -322,20 +259,19 @@ export default class Login extends Vue {
         this.noteTitle,
         this.noteDescription,
         this.pin,
-        this.groupNameSelected
+        this.priority
       );
-      this.store.note.saveLocal(note, "note");
+      this.store.note.saveLocal(note);
       this.$data.noteTitle = "";
       this.$data.noteDescription = "";
-      this.notes = this.store.note.getLocal("note");
+      this.notes = this.store.note.getLocal();
     } else if (this.$v.$invalid) {
       console.log("not success");
     }
   }
   created() {
     this.$v.$touch();
-    this.notes = this.store.note.getLocal("note");
-    this.groupNames = JSON.parse(localStorage.notesGroupNames);
+    this.notes = this.store.note.getLocal();
   }
 }
 </script>

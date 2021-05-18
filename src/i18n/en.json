@@ -56,6 +56,12 @@
   "Note description": "Note description",
   "Set": "Set",
   "Enter the title": "Enter the title",
+  "Group name": "Group name",
+  "Enter the name": "Enter the name",
+  "Add group name": "Add group name",
+  "Group names": "Group names",
+  "Sort by group name": "Sort by group name",
+  "Delete note": "Delete note",
   "user": {
     "Username": "Username",
     "Name": "Name",
@@ -85,10 +91,12 @@
     "cost_manager": "cost manager",
     "calendar": "calendar",
     "archive": "archive",
-    "basket": "basket"
+    "basket": "basket",
+    "task": "task"
   },
   "profileMenuList": {
     "your_notes": "Your Notes",
+    "your_tasks": "Your Tasks",
     "your_reminds": "Your Notes",
     "your_documents": "Your Documents",
     "your_plans": "Your Plans",

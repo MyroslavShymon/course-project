@@ -139,7 +139,18 @@ import HelpAndAccessability from "./HelpAndAccessability.vue";
       upHere: false,
       items: [
         { divider: true },
-        { text: "your_notes", link: true, linkTo: "/", icon: "task" },
+        {
+          text: "your_notes",
+          link: true,
+          linkTo: "/",
+          icon: "mdi-microsoft-onenote",
+        },
+        {
+          text: "your_tasks",
+          link: true,
+          linkTo: "/task",
+          icon: "task",
+        },
         {
           text: "your_reminds",
           link: true,

@@ -55,6 +55,12 @@
   "Note title": "Заголовок замітки",
   "Note description": "Замітка",
   "Enter the title": "Введіть заголовок",
+  "Group name": "Назва групи",
+  "Add group name": "Додати назву групи",
+  "Enter the name": "Введіть назву",
+  "Group names": "Назви груп",
+  "Sort by group name": "Сортувати за назвою групи",
+  "Delete note": "Видалити примітку",
   "Set": "Добавити",
   "user": {
     "Username": "Ім'я користувача",
@@ -85,10 +91,12 @@
     "cost_manager": "менеджер витрат",
     "calendar": "календар",
     "archive": "архів",
+    "task": "Задачі",
     "basket": "корзина"
   },
   "profileMenuList": {
     "your_notes": "Ваші примітки",
+    "your_tasks": "Ваші задачі",
     "your_reminds": "Ваші нагадування",
     "your_documents": "Ваші документи",
     "your_plans": "Ваші плани",

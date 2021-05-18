@@ -63,7 +63,8 @@ import { Component, Vue, Prop } from "vue-property-decorator";
   name: "NavBar",
   data: () => ({
     items: [
-      { icon: "task", text: "notes", link: "/" },
+      { icon: "mdi-microsoft-onenote", text: "notes", link: "/" },
+      { icon: "task", text: "task", link: "/task" },
       { icon: "mdi-bell", text: "reminder", link: "/reminder" },
       { icon: "mdi-file-document", text: "documents", link: "/documents" },
       { icon: "mdi-notebook", text: "plans", link: "/plans" },

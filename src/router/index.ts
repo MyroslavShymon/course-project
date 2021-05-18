@@ -12,6 +12,12 @@ const routes: Array<RouteConfig> = [
     component: Notes,
   },
   {
+    path: "/task",
+    name: "Task",
+    meta: { layout: "main" },
+    component: () => import("../views/Task.vue"),
+  },
+  {
     path: "/reminder",
     name: "Reminder",
     meta: { layout: "main" },
