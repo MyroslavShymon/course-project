@@ -15,55 +15,79 @@
             v-model.trim="noteTitle"
             v-if="fieldShow"
           ></v-text-field>
-          <v-textarea
-            rows="2"
-            name="input-7-4"
-            :label="$t('Note description')"
-            required
-            :rules="rulesNoteDescriptionInput"
-            v-model.trim="noteDescription"
-            @click="fieldShow = true"
-          ></v-textarea>
-          <div class="d-flex flex-column align-center" v-if="fieldShow">
-            <v-text-field
-              style="width: 100%"
-              :label="$t('Group name')"
-              :placeholder="$t('Enter the name')"
-              color="primary"
-              v-model.trim="groupName"
-              @keyup.enter="addGroupName"
-            ></v-text-field>
-            <div class="d-flex" style="width: 100%">
-              <v-btn color="secondary color_black" @click="addGroupName">
-                {{ $t("Add group name") }}
-              </v-btn>
-              <v-btn
-                color="secondary color_black"
-                @click="sortByGroupName"
-                class="ml-2"
-              >
-                {{ $t("Sort by group name") }}
-              </v-btn>
-            </div>
+          <div class="d-flex">
+            <v-textarea
+              rows="1"
+              name="input-7-4"
+              :label="$t('Note description')"
+              required
+              :rules="rulesNoteDescriptionInput"
+              v-model.trim="noteDescription"
+              @click="fieldShow = true"
+            ></v-textarea>
+            <v-menu bottom offset-y>
+              <template v-slot:activator="{ on, attrs }">
+                <v-icon
+                  class="pa-2"
+                  style="width: 25px; height: 25px"
+                  v-bind="attrs"
+                  v-on="on"
+                  >mdi-dots-vertical</v-icon
+                >
+              </template>
+              <v-list>
+                <v-list-item @click="sortByGroupName" class="pointer">
+                  <v-list-item-title>{{
+                    $t("Sort by group name")
+                  }}</v-list-item-title>
+                </v-list-item>
+                <v-list-item @click="groupWrapper = true" class="pointer">
+                  <v-list-item-title>{{ $t("Add group") }}</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
           </div>
+          <div class="mt-2" v-if="fieldShow">
+            <v-select
+              :items="groupNames"
+              :label="$t('Group names')"
+              outlined
+              v-model="groupNameSelected"
+            ></v-select>
+          </div>
+          <v-row cols="12" v-if="fieldShow">
+            <v-col md="12" v-if="groupWrapper">
+              <v-row>
+                <v-col md="7" class="d-flex justify-center align-center">
+                  <v-text-field
+                    :label="$t('Group name')"
+                    :placeholder="$t('Enter the name')"
+                    color="primary"
+                    v-model.trim="groupName"
+                    @keyup.enter="addGroupName"
+                  ></v-text-field>
+                </v-col>
+                <v-col md="5" class="d-flex justify-end align-center">
+                  <div class="d-flex" style="width: 100%">
+                    <v-btn color="secondary color_black" @click="addGroupName">
+                      {{ $t("Add group name") }}
+                    </v-btn>
+                  </div>
+                </v-col>
+              </v-row>
+            </v-col>
+          </v-row>
           <v-btn
             color="secondary color_black"
             block
             type="submit"
+            v-if="fieldShow"
             :disabled="this.$v.$invalid"
             class="mt-2"
           >
             {{ $t("Set") }}
           </v-btn>
         </form>
-        <div class="mt-2" v-if="fieldShow">
-          <v-select
-            :items="groupNames"
-            :label="$t('Group names')"
-            outlined
-            v-model="groupNameSelected"
-          ></v-select>
-        </div>
       </v-card>
       <draggable
         style="width: 50%"
@@ -239,6 +263,7 @@ import draggable from "vuedraggable";
       fieldShow: false,
       noteTitle: "",
       noteDescription: "",
+      groupWrapper: false,
     };
   },
 })
@@ -270,9 +295,9 @@ export default class Login extends Vue {
     this.store.note.setNotesLocal("note", filteredNoteArray);
   }
   private addGroupName() {
+    this.$data.groupWrapper = false;
     this.groupNames.push(this.groupName);
-    console.log("this.groupNames", this.groupNames);
-
+    this.groupName = "";
     localStorage.notesGroupNames = JSON.stringify(this.groupNames);
   }
   private checkMove(e: any) {
@@ -287,7 +312,7 @@ export default class Login extends Vue {
     localStorage.note = JSON.stringify(notes);
   }
   private sortByGroupName() {
-    this.notes = this.store.note.sortByGroupName();
+    this.notes = this.store.note.sortByGroupName("note");
   }
 
   private show(e: any) {
