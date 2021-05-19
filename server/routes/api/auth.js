@@ -5,8 +5,9 @@ const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const { validationResult } = require("express-validator");
 const User = require("../../models/User");
-const Story = require("../../models/Story");
+const Note = require("../../models/Note");
 const config = require("config");
+const Task = require("../../models/Task");
 
 /**
  * @route POST api/auth/register
@@ -156,30 +157,75 @@ router.get(
     });
   }
 );
-// /**
-//  * @route POST api/users/profile
-//  * @desc Return the User's Data
-//  * @access Public
-//  */
-// router.post("/profile", async (req, res) => {
-//   const { username, title } = req.body;
-//   const user = await User.findOne({ username });
+/**
+ * @route POST api/users/
+ * @desc Return the User's Data
+ * @access Public
+ */
+router.post("/", async (req, res) => {
+  console.log("req.body", req.body);
+  const { email, _title, _description, _pin, _group } = req.body;
+  const user = await User.findOne({ email });
+  console.log("finded user note", user);
 
-//   if (!user) {
-//     return res.status(400).json({ msg: "Username is not found" });
-//   }
-//   const story = new Story({
-//     author: user._id,
-//     title,
-//   });
-//   await story.save();
-//   const stories = await Story.find({ author: user._id });
-//   res.status(201).json({
-//     msg: "story is created!!!",
-//     success: true,
-//     story: story,
-//     stories: stories,
-//   });
-// });
+  if (!user) {
+    return res.status(400).json({ msg: "Username is not found" });
+  }
+  const note = new Note({
+    author: user._id,
+    _title,
+    _description,
+    _pin,
+    _group,
+  });
+  console.log("note to save", note);
+  await note.save();
+  const notes = await Note.find({ author: user._id });
+  res.status(201).json({
+    msg: "note is created!!!",
+    success: true,
+    note: note,
+    notes: notes,
+  });
+});
+
+/**
+ * @route POST api/users/task
+ * @desc Return the User's Data
+ * @access Public
+ */
+router.post("/task", async (req, res) => {
+  const {
+    email,
+    _title,
+    _description,
+    _pin,
+    _group,
+    _priority,
+    _done,
+  } = req.body;
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    return res.status(400).json({ msg: "Username is not found" });
+  }
+  const task = new Task({
+    author: user._id,
+    _title,
+    _description,
+    _pin,
+    _group,
+    _priority,
+    _done,
+  });
+  await task.save();
+  const tasks = await Task.find({ author: user._id });
+  res.status(201).json({
+    msg: "task is created!!!",
+    success: true,
+    task: task,
+    tasks: tasks,
+  });
+});
 
 module.exports = router;

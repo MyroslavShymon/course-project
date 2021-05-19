@@ -3,6 +3,8 @@ import axios from "axios";
 import User from "./User";
 import IUserToLogin from "../interfaces/IUserToLogin";
 import router from "@/router";
+import Note from "./Note";
+import INote from "../interfaces/INote";
 
 export default class Auth {
   @State()
@@ -27,6 +29,38 @@ export default class Auth {
       console.log(res);
       if (res.data.success) {
         this.register_success();
+      }
+      return res;
+    } catch (err) {
+      this.auth_error(err);
+    }
+  }
+  @Action()
+  async addNote(note: any) {
+    this.addNote_request();
+    try {
+      console.log("try", note);
+
+      let res = await axios.post("http://localhost:5001/api/auth/", note);
+      console.log(res);
+      if (res.data.success) {
+        this.addNote_success();
+      }
+      return res;
+    } catch (err) {
+      this.auth_error(err);
+    }
+  }
+  @Action()
+  async addTask(note: any) {
+    this.addTask_request();
+    try {
+      console.log("try", note);
+
+      let res = await axios.post("http://localhost:5001/api/auth/task", note);
+      console.log(res);
+      if (res.data.success) {
+        this.addTask_success();
       }
       return res;
     } catch (err) {
@@ -101,7 +135,23 @@ export default class Auth {
     this.status = "loading";
   }
   @Mutation()
+  addNote_request() {
+    this.status = "loading";
+  }
+  @Mutation()
+  addTask_request() {
+    this.status = "loading";
+  }
+  @Mutation()
   register_success() {
+    this.status = "succes";
+  }
+  @Mutation()
+  addNote_success() {
+    this.status = "succes";
+  }
+  @Mutation()
+  addTask_success() {
     this.status = "succes";
   }
   @Mutation()

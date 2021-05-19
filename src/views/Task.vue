@@ -356,7 +356,6 @@
               </v-col>
             </div>
           </v-card>
-          <div v-else>There are no notes</div>
         </div>
       </draggable>
       <span class="d-none">{{ notesGet }}</span>
@@ -377,6 +376,7 @@ import Note from "@/store/modules/Note";
 import INote from "@/store/interfaces/INote";
 import draggable from "vuedraggable";
 import Task from "@/store/modules/Task";
+import { AxiosResponse } from "node_modules/axios";
 
 @Component({
   name: "Login",
@@ -394,6 +394,7 @@ import Task from "@/store/modules/Task";
       fieldShow: false,
       taskTitle: "",
       taskDescription: "",
+      error: "",
       groupWrapper: false,
     };
   },
@@ -495,11 +496,37 @@ export default class Login extends Vue {
     this.notes = this.store.task.getNotes("task");
   }
 
-  private addNote() {
+  private async addNote() {
     this.$v.$touch();
     if (!this.$v.$invalid) {
       if (localStorage.isAuthOrganizer == "true") {
-        console.log("success registered");
+        await this.store.auth.getProfile();
+        const user = this.store.auth.currentUser;
+        const task = {
+          _title: this.taskTitle,
+          _description: this.taskDescription,
+          _pin: this.pin,
+          _group: this.groupNameSelected,
+          _priority: this.priority,
+          _done: this.done,
+          email: user.email,
+        };
+
+        this.store.auth
+          .addTask(task)
+          .then((res: AxiosResponse<any>) => {
+            this.$data.error = this.store.auth.error;
+
+            if (res.data.success) {
+              console.log("Succes", this.store.user);
+            }
+            console.log("res", res.data.tasks);
+            this.notes.unshift(res.data.task);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        return;
       }
       const task: INote = new Task(
         this.taskTitle,

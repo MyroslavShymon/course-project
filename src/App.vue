@@ -83,10 +83,6 @@ export default class App extends Vue {
   private activeColor =
     localStorage.themeColor === "false" ? "#ffffff" : "#363636";
 
-  // async mounted() {
-
-  // }
-
   async created() {
     if (localStorage.note === undefined) {
       localStorage.note = JSON.stringify([]);

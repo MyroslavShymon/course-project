@@ -27,7 +27,9 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  story: [{ type: Schema.Types.ObjectId, ref: "story" }],
+  note: [{ type: Schema.Types.ObjectId, ref: "note" }],
+  task: [{ type: Schema.Types.ObjectId, ref: "task" }],
+  reminder: [{ type: Schema.Types.ObjectId, ref: "reminder" }],
 });
 
 module.exports = User = mongoose.model("users", UserSchema);

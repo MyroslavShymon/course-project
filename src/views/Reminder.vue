@@ -95,7 +95,9 @@
             color="secondary color_black"
             block
             type="submit"
-            :disabled="this.$v.$invalid || this.datePicker==''|| this.timePicker==''"
+            :disabled="
+              this.$v.$invalid || this.datePicker == '' || this.timePicker == ''
+            "
             class="mt-2"
           >
             {{ $t("Set") }}
@@ -303,7 +305,6 @@
               </v-col>
             </div>
           </v-card>
-          <div v-else>There are no notes</div>
         </div>
       </draggable>
       <span class="d-none">{{ notesGet }}</span>
@@ -450,6 +451,7 @@ export default class Login extends Vue {
     if (!this.$v.$invalid) {
       if (localStorage.isAuthOrganizer == "true") {
         console.log("success registered");
+        return;
       }
       const reminder: INote = new Reminder(
         this.taskTitle,

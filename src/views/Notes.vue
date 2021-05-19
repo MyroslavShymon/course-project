@@ -227,7 +227,6 @@
               </v-menu>
             </div>
           </v-card>
-          <div v-else>There are no notes</div>
         </div>
       </draggable>
       <span class="d-none">{{ notesGet }}</span>
@@ -246,6 +245,7 @@ import { useStore } from "vuex-simple";
 import Note from "@/store/modules/Note";
 import INote from "@/store/interfaces/INote";
 import draggable from "vuedraggable";
+import { AxiosResponse } from "node_modules/axios";
 
 @Component({
   name: "Login",
@@ -264,6 +264,7 @@ import draggable from "vuedraggable";
       noteTitle: "",
       noteDescription: "",
       groupWrapper: false,
+      error: "",
     };
   },
 })
@@ -337,11 +338,35 @@ export default class Login extends Vue {
     this.notes = this.store.note.getLocal("note");
   }
 
-  private addNote() {
+  private async addNote() {
     this.$v.$touch();
     if (!this.$v.$invalid) {
       if (localStorage.isAuthOrganizer == "true") {
-        console.log("success registered");
+        await this.store.auth.getProfile();
+        const user = this.store.auth.currentUser;
+        const note = {
+          _title: this.noteTitle,
+          _description: this.noteDescription,
+          _pin: this.pin,
+          _group: this.groupNameSelected,
+          email: user.email,
+        };
+
+        this.store.auth
+          .addNote(note)
+          .then((res: AxiosResponse<any>) => {
+            this.$data.error = this.store.auth.error;
+
+            if (res.data.success) {
+              console.log("Succes", this.store.user);
+            }
+            console.log("res", res.data.notes);
+            this.notes.unshift(res.data.note);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        return;
       }
       const note: INote = new Note(
         this.noteTitle,
